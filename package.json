@@ -15,14 +15,16 @@
     "axios": "^1.10.0",
     "body-parser": "^2.2.0",
     "cheerio": "^1.1.0",
-    "dotenv": "^16.5.0",
+    "dotenv": "^16.6.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "http": "^0.0.1-security",
     "mangodb": "^1.0.0",
     "mongodb": "^6.17.0",
+    "node-cron": "^4.2.1",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.10",
+    "simple-git": "^3.28.0",
     "socket.io": "^4.8.1",
     "web-push": "^3.6.7"
   }

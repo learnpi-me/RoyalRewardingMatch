@@ -101,8 +101,8 @@ app.get("/np/:id", (req, res) =>{
     const item = ogdata.find(item => item.id === id);
     if (item && item.link) {
        let input= item.link;
-        if (input.includes("https://www.rolexcoderz.xyz/Player?token=")) {
-            input = input.replace("https://www.rolexcoderz.xyz/Player?token=", "");
+        if (input.includes("https://www.rolexcoderz.live/Player?token=")) {
+            input = input.replace("https://www.rolexcoderz.live/Player?token=", "");
         }
         function extractCleanM3U8orUrl(input) {
           try {

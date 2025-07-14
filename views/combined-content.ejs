@@ -261,12 +261,13 @@
             align-items: center;
             width: 200px;
             padding: 16px 24px;
-            margin: 50px auto 0 auto;
+            margin-top: 50px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.3);
+
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             font-family: 'Segoe UI', sans-serif;
             font-size: 20px;
@@ -283,14 +284,15 @@
         }
 
         .switch span:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.05);
-        }
-
-        .switch span.active {
-            background: linear-gradient(to right, #34D399, #14B8A6);
-            color: white;
+            font-size: 15px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #34D399, #14B8A6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            padding: 10px;
         }
     </style>
 
@@ -299,16 +301,14 @@
 </head>
 <body>
     <div id="particle-canvas"></div>
-    
-    <div class="learnpulse-brand" style="position: relative; text-align: center; padding: 30px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); margin: 20px auto; border-radius: 20px; max-width: 600px; box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden;">
+    <div class="learnpulse-brand" style="position: relative; text-align: center; padding: 30px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); margin: 20px auto; border-radius: 20px; max-width: 600px; color: white; box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden;">
         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(255,255,255,0.08) 0%, transparent 50%); pointer-events: none;"></div>
         <div style="position: relative; z-index: 2;">
-            <h1 style="color: white; font-size: 3em; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); font-weight: 700; letter-spacing: -1px;">LearnPulse</h1>
+            <h1 style="font-size: 3em; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); font-weight: 700; letter-spacing: -1px;">LearnPulse</h1>
             <div style="width: 60px; height: 3px; background: linear-gradient(90deg, #fff, rgba(255,255,255,0.5)); margin: 15px auto; border-radius: 2px;"></div>
-            <p style="color: rgba(255,255,255,0.95); margin: 0; font-size: 1.2em; font-weight: 300; letter-spacing: 0.5px;">Your Learning Journey Starts Here</p>
+            <p style="margin: 0; font-size: 1.2em; font-weight: 300; letter-spacing: 0.5px; opacity: 0.95;">Your Learning Journey Starts Here</p>
         </div>
     </div>
-
     <div class="quote-section">
         <h1>Daily Inspiration</h1>
         <blockquote>
@@ -383,21 +383,11 @@
     const cards = document.querySelector('.cards');
     const routeType = '<%= routeType %>';
 
-    // Set initial active state
-    lecture.classList.add('active');
-
-    function setActiveButton(activeBtn, inactiveBtn) {
-        activeBtn.classList.add('active');
-        inactiveBtn.classList.remove('active');
-    }
-
     lecture.addEventListener('click', () => {
-        setActiveButton(lecture, notes);
         cards.innerHTML = '';
-        
         <% data.forEach(user => { %>
             <% if (routeType === 'aarambh') { %>
-                <% if (user.type === 'video') { %>
+                if ('<%= user.type %>' == 'video') {
                     const cardDiv = document.createElement('div');
                     cardDiv.className = 'card effect3d';
                     cardDiv.innerHTML = `
@@ -417,9 +407,9 @@
                         </a>
                     `;
                     cards.appendChild(cardDiv);
-                <% } %>
+                }
             <% } else { %>
-                <% if (!user.type || user.type === 'video') { %>
+                if (!'<%= user.type %>') {
                     const cardDiv = document.createElement('div');
                     cardDiv.className = 'card effect3d';
                     cardDiv.innerHTML = `
@@ -439,18 +429,16 @@
                         </a>
                     `;
                     cards.appendChild(cardDiv);
-                <% } %>
+                }
             <% } %>
         <% }); %>
     });
 
     notes.addEventListener('click', () => {
-        setActiveButton(notes, lecture);
         cards.innerHTML = '';
-        
         <% data.forEach(user => { %>
             <% if (routeType === 'aarambh') { %>
-                <% if (user.type === 'notes') { %>
+                if ('<%= user.type %>' == 'notes') {
                     const cardDiv = document.createElement('div');
                     cardDiv.className = 'card effect3d';
                     cardDiv.innerHTML = `
@@ -470,9 +458,9 @@
                         </a>
                     `;
                     cards.appendChild(cardDiv);
-                <% } %>
+                }
             <% } else { %>
-                <% if (user.type === 'notes') { %>
+                if ('<%= user.type %>' === 'notes') {
                     const cardDiv = document.createElement('div');
                     cardDiv.className = 'card effect3d';
                     cardDiv.innerHTML = `
@@ -492,7 +480,7 @@
                         </a>
                     `;
                     cards.appendChild(cardDiv);
-                <% } %>
+                }
             <% } %>
         <% }); %>
     });
@@ -623,16 +611,14 @@
     });
 
     function updateBellAndButton() {
-        if (bellIcon && subscribeButton) {
-            if (currentSubscription) {
-                bellIcon.style.color = '#4CAF50';
-                bellIcon.style.animation = 'none';
-                subscribeButton.title = 'You are subscribed!';
-            } else {
-                bellIcon.style.color = '#FFD700';
-                bellIcon.style.animation = 'bellRing 2s ease-in-out infinite';
-                subscribeButton.title = 'Subscribe to notifications';
-            }
+        if (currentSubscription) {
+            bellIcon.style.color = '#4CAF50';
+            bellIcon.style.animation = 'none';
+            subscribeButton.title = 'You are subscribed!';
+        } else {
+            bellIcon.style.color = '#FFD700';
+            bellIcon.style.animation = 'bellRing 2s ease-in-out infinite';
+            subscribeButton.title = 'Subscribe to notifications';
         }
     }
 
@@ -643,8 +629,7 @@
                 currentSubscription = await reg.pushManager.getSubscription();
                 updateBellAndButton();
 
-                if (subscribeButton) {
-                    subscribeButton.addEventListener("click", async function() {
+                subscribeButton.addEventListener("click", async function() {
                     if (currentSubscription) {
                         try {
                             await currentSubscription.unsubscribe();
@@ -671,10 +656,9 @@
                             return;
                         }
 
-                        const vapidKey = '<%= process.env.VAPID_PUBLIC_KEY || "BEl62iUYgUivxIkv69yViEuiBIa40HI2PpGgM-CnVN-LgVnhf1sY7lCHTjPDrOyJRUGkF9gO9pVxAb6r-M7TRAk" %>';
                         const subscription = await reg.pushManager.subscribe({
                             userVisibleOnly: true,
-                            applicationServerKey: urlBase64ToUint8Array(vapidKey)
+                            applicationServerKey: urlBase64ToUint8Array('<%= process.env.VAPID_PUBLIC_KEY || "" %>')
                         });
 
                         if (!subscription) {
@@ -706,12 +690,11 @@
                         }
                     }
                 });
-                }
             })
             .catch(function(error) {
                 console.error('Service Worker registration failed:', error);
                 showMessageModal("Service Worker registration failed. Push notifications will not work in this browser.");
-                if (subscribeButton && bellIcon) {
+                if (subscribeButton) {
                     subscribeButton.disabled = true;
                     bellIcon.style.color = "#6c757d";
                     bellIcon.style.animation = 'none';

@@ -116,12 +116,22 @@ async function scrapeVideosFromUrl(url, subject, classnum) {
                     link = match[1];
                  
                     if (link.startsWith('https://www.rolexcoderz.xyz/Player?url=')) {
-                        link = link.replace('https://www.rolexcoderz.xyz/Player?url=', '');
-                    }
-                    // Remove any remaining Player?url= prefix
-                    if (link.startsWith('Player?url=')) {
-                        link = link.replace('Player?url=', '');
-                    }
+                        link = link.replace('https://www.rolexcoderz.xyz/Player?url=', '')};
+                    if (link.includes('https://www.rolexcoderz.xyz/Play?url=')) {
+                        link = link.replace('https://www.rolexcoderz.xyz/Play?url=', '')};
+                        if (link.includes('https://www.rolexcoderz.xyz/Player?token=')) { link = link.replace("https://www.rolexcoderz.xyz/Player?token=", '')};
+                    
+                    if (link.includes('https://rolexcoderz.live/Player?token=')) {
+                        link = link.replace('https://rolexcoderz.live/Player?token=', '')}
+                    if(link.includes("Player?url=")){
+                        link = link.replace("Player?url=", '');
+                    };
+                    if(link.includes("../Player?token=")){
+                        link = link.replace("../Player?token=", '');
+                    };
+                    if(link.includes("240p30.m3u8")){
+                        link = link.replace("240p30.m3u8", '720p30.m3u8');
+                    };
                     // Decode URL if it's encoded
                     try {
                         link = decodeURIComponent(link);
@@ -188,5 +198,4 @@ async function scrapeAllVideos() {
         console.error('Error writing videos.json file:', error.message);
     }
 }
-
 module.exports = { scrapeAllVideos };
