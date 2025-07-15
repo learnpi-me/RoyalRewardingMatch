@@ -38,12 +38,7 @@ app.get("/aarambh", (req, res) => {
     res.render("aarambh");
 });
 let subscriptions = [];
-const ogdata= JSON.parse(fs.readFileSync("videos.json"));
-let id = 1;
-ogdata.forEach(item => {
-  item.id = id;
-    id++;
-})
+
 const generateRandomTime = () => {
     const hour = String(Math.floor(Math.random() * 24)).padStart(2, '0');
     const minute = String(Math.floor(Math.random() * 60)).padStart(2, '0');
@@ -64,13 +59,7 @@ const generateRandomDate = () => {
     return `${year}-${month}-${day}`; //ISO format
 };
 
-ogdata.forEach(item => {
-    item.time = generateRandomTime();
-    item.date = generateRandomDate();
-    if(item.link.includes("240p30.m3u8")){
-        item.link= item.link.replace("240p30.m3u8","720p30.m3u8")
-    }
-});
+
 
 
 let dar = JSON.parse(fs.readFileSync("ps.json"));
@@ -98,6 +87,19 @@ app.get("/test-notifications", (req, res) => {
 });
 app.get("/np/:id", (req, res) =>{
     const id = parseInt(req.params.id);
+    const ogdata= JSON.parse(fs.readFileSync("videos.json"));
+    let ids = 1;
+    ogdata.forEach(item => {
+      item.id = ids;
+        id++;
+    })
+    ogdata.forEach(item => {
+        item.time = generateRandomTime();
+        item.date = generateRandomDate();
+        if(item.link.includes("240p30.m3u8")){
+            item.link= item.link.replace("240p30.m3u8","720p30.m3u8")
+        }
+    });
     const item = ogdata.find(item => item.id === id);
     if (item && item.link) {
        let input= item.link;
@@ -146,6 +148,19 @@ app.get("/np/:id", (req, res) =>{
 
 app.get("/PDFnp/:id", (req, res) =>{
     const id = parseInt(req.params.id);
+    const ogdata= JSON.parse(fs.readFileSync("videos.json"));
+    let ids = 1;
+    ogdata.forEach(item => {
+      item.id = ids;
+        id++;
+    })
+    ogdata.forEach(item => {
+        item.time = generateRandomTime();
+        item.date = generateRandomDate();
+        if(item.link.includes("240p30.m3u8")){
+            item.link= item.link.replace("240p30.m3u8","720p30.m3u8")
+        }
+    });
     const item = ogdata.find(item => item.id === id);
     if (item && item.link) {
        const input= item.link;
