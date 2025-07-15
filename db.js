@@ -77,6 +77,9 @@ app.get("/np/:id", (req, res) => {
     if (input.includes("https://www.rolexcoderz.live/Player?token=")) {
         input = input.replace("https://www.rolexcoderz.live/Player?token=", "");
     }
+    if (input.includes("Play?url=")) {
+        input = input.replace("Play?url=", "");
+    }
     function extractCleanM3U8orUrl(input) {
         try {
             if (/^https?:\/\//i.test(input)) {

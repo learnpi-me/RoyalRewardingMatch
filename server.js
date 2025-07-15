@@ -145,6 +145,9 @@ async function scrapeVideosFromUrl(url, subject, classnum) {
                     if (link.includes('https://www.rolexcoderz.xyz/Player?token=')) {
                         link = link.replace("https://www.rolexcoderz.xyz/Player?token=", '');
                     }
+                    if (link.includes('https://www.rolexcoderz.live/Player?token=')) {
+                        link = link.replace('https://www.rolexcoderz.live/Player?token=', '');
+                    }
                     if (link.includes('https://rolexcoderz.live/Player?token=')) {
                         link = link.replace('https://rolexcoderz.live/Player?token=', '');
                     }
@@ -156,6 +159,9 @@ async function scrapeVideosFromUrl(url, subject, classnum) {
                     }
                     if (link.includes("240p30.m3u8")) {
                         link = link.replace("240p30.m3u8", '720p30.m3u8');
+                    }
+                    if (link.includes("Play?url=")) {
+                        link = link.replace("play?url", '');
                     }
                     // Decode URL if it's encoded
                     try {
