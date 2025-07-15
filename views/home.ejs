@@ -200,7 +200,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #3e3e3e;
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -241,11 +241,33 @@
         .close-btn:hover {
             color: #ff4d4d;
         }
+        .telegram-icon {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 60px;
+          height: 60px;
+            z-index:100;
+          border-radius: 100px;
+          overflow: hidden;
+        }
 
+        .telegram-icon a {
+          display: block;
+          text-decoration: none;
+        }
+
+        .telegram-icon img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 100px;
+        }
         .glassmorphism-box h2 {
             font-size: 2.5em;
             margin-bottom: 30px;
-            background-image: linear-gradient(45deg, #8A2BE2, #00BFFF);
+            
+                  background: linear-gradient(135deg, #ff6a00, #ee0979, #8e2de2);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -262,7 +284,6 @@
         }
 
         .telegram-link-item {
-            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(8px) saturate(150%);
             -webkit-backdrop-filter: blur(8px) saturate(150%);
             border-radius: 10px;
@@ -284,7 +305,7 @@
         .telegram-link-item h3 {
             font-size: 1.8em;
             margin-bottom: 20px;
-            background-image: linear-gradient(45deg, #00BFFF, #8A2BE2);
+             background: radial-gradient(circle at center, #00f5a0, #00d9f5, #0084ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -347,7 +368,11 @@
             <p style="color: rgba(255,255,255,0.95); margin: 0; font-size: 1.2em; font-weight: 300; letter-spacing: 0.5px;">Your Learning Journey Starts Here</p>
         </div>
     </div>
-
+    <div class="telegram-icon">
+        <a href="https://t.me/yourusername" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo">
+        </a>
+      </div>
     <!-- Main Content -->
     <main class="container">
         <!-- Search and Update Section -->
@@ -451,7 +476,7 @@
                     successMessage.classList.add('show');
                     setTimeout(() => {
                         successMessage.classList.remove('show');
-                    }, 3000);
+                    }, 10000);
                     console.log("Courses updated");
                 } else {
                     throw new Error('Failed to update courses');
@@ -469,7 +494,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 document.getElementById('telegramPopup').style.display = 'flex';
-            }, 1000);
+            }, 10000);
         });
     </script>
 </body>
