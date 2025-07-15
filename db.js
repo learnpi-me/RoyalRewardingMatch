@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const webpush = require("web-push");
+
 const app = express();
 const fetch = (...args) => import('node-fetch').then(module => module.default(...args));
 
@@ -39,28 +40,6 @@ app.get("/aarambh", (req, res) => {
 });
 let subscriptions = [];
 
-const generateRandomTime = () => {
-    const hour = String(Math.floor(Math.random() * 24)).padStart(2, '0');
-    const minute = String(Math.floor(Math.random() * 60)).padStart(2, '0');
-    return `${hour}:${minute}`;
-};
-
-const generateRandomDate = () => {
-    const start = new Date(2025, 2, 1); // March 1, 2025
-    const end = new Date(); // Today's date
-    const diff = end.getTime() - start.getTime();
-    const randomDays = Math.floor(Math.random() * (diff / (1000 * 3600 * 24)));
-    const randomDate = new Date(start.getTime() + randomDays * (1000 * 3600 * 24));
-
-    const day = String(randomDate.getDate()).padStart(2, '0');
-    const month = String(randomDate.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
-    const year = randomDate.getFullYear();
-
-    return `${year}-${month}-${day}`; //ISO format
-};
-
-
-
 
 let dar = JSON.parse(fs.readFileSync("ps.json"));
 let ogdata = JSON.parse(fs.readFileSync("videos.json"));
@@ -86,84 +65,63 @@ app.get("/admin", (req, res) => {
 app.get("/test-notifications", (req, res) => {
     res.render("test-notification");
 });
-app.get("/np/:id", (req, res) =>{
-    const id = parseInt(req.params.id);
-    const ogdata= JSON.parse(fs.readFileSync("videos.json"));
-    let ids = 1;
-    ogdata.forEach(item => {
-      item.id = ids;
-        id++;
-    })
-    ogdata.forEach(item => {
-        item.time = generateRandomTime();
-        item.date = generateRandomDate();
-        if(item.link.includes("240p30.m3u8")){
-            item.link= item.link.replace("240p30.m3u8","720p30.m3u8")
-        }
-    });
-    const item = ogdata.find(item => item.id === id);
-    if (item && item.link) {
-       let input= item.link;
-        if (input.includes("https://www.rolexcoderz.live/Player?token=")) {
-            input = input.replace("https://www.rolexcoderz.live/Player?token=", "");
-        }
-        function extractCleanM3U8orUrl(input) {
-          try {
+app.get("/np/:id", (req, res) => {
+    const id = req.params.id;
+    let ogdata = JSON.parse(fs.readFileSync("videos.json"));
+    const item = ogdata.find(item => item.id == id);
+  
+    if (item.link.includes("240p30.m3u8")) {
+        item.link = item.link.replace("240p30.m3u8", "720p30.m3u8");
+    }
+    let input = item.link;
+    if (input.includes("https://www.rolexcoderz.live/Player?token=")) {
+        input = input.replace("https://www.rolexcoderz.live/Player?token=", "");
+    }
+    function extractCleanM3U8orUrl(input) {
+        try {
             if (/^https?:\/\//i.test(input)) {
-              return input; 
+                return input;
             }
-
             const urlSafeBase64 = decodeURIComponent(input);
             let base64 = urlSafeBase64.replace(/-/g, '+').replace(/_/g, '/');
-
             while (base64.length % 4 !== 0) {
-              base64 += '=';
+                base64 += '=';
             }
-
             const decoded = atob(base64);
             const match = decoded.match(/https?:\/\/[^|]+?\.m3u8/);
-
             return match ? match[0] : null;
-          } catch (error) {
+        } catch (error) {
             console.error("❌ Failed to extract URL:", error.message);
             return null;
-          }
         }
-
-        function unwrapNestedUrl(possibleWrappedUrl) {
-          try {
+    }
+    function unwrapNestedUrl(possibleWrappedUrl) {
+        try {
             const urlObj = new URL(possibleWrappedUrl);
             const rawParam = urlObj.searchParams.get('url');
             return rawParam ? decodeURIComponent(rawParam) : possibleWrappedUrl;
-          } catch (error) {
+        } catch (error) {
             console.error("❌ Failed to unwrap URL:", error.message);
             return possibleWrappedUrl;
-          }
         }
-        const cleanedUrl = extractCleanM3U8orUrl(input);
-        const finalUrl = unwrapNestedUrl(cleanedUrl);
-         res.render("plyr", { url: finalUrl });
-
     }
+    const cleanedUrl = extractCleanM3U8orUrl(input);
+    if (!cleanedUrl) {
+        return res.status(400).send("Invalid URL format");
+    }
+    const finalUrl = unwrapNestedUrl(cleanedUrl);
+    res.render("plyr", { url: finalUrl });
 });
 
 app.get("/PDFnp/:id", (req, res) =>{
-    const id = parseInt(req.params.id);
-    const ogdata= JSON.parse(fs.readFileSync("videos.json"));
-    let ids = 1;
-    ogdata.forEach(item => {
-      item.id = ids;
-        id++;
-    })
-    ogdata.forEach(item => {
-        item.time = generateRandomTime();
-        item.date = generateRandomDate();
+    const id = req.params.id;
+    let ogdata= JSON.parse(fs.readFileSync("videos.json"));
+    const item = ogdata.find(item => item.id == id);
+    if(item && item.link){
         if(item.link.includes("240p30.m3u8")){
             item.link= item.link.replace("240p30.m3u8","720p30.m3u8")
         }
-    });
-    const item = ogdata.find(item => item.id === id);
-    if (item && item.link) {
+    
        const input= item.link;
         function extractCleanM3U8orUrl(input) {
           try {
@@ -205,7 +163,7 @@ app.get("/PDFnp/:id", (req, res) =>{
          res.render("pdf", { url: finalUrl });
 
     }
-})
+});
 app.post('/password', (req, res) => {
     const password = req.body.password;
     if (password === "viratkohli") {
