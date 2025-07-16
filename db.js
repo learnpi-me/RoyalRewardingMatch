@@ -178,6 +178,7 @@ app.post('/password', (req, res) => {
 
 app.get("/new/:batch/:subject", (req, res) =>
     {
+        let ogdata = JSON.parse(fs.readFileSync("videos.json"));
  const batch= req.params.batch
         const subject= req.params.subject;
 
