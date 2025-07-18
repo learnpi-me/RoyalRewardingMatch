@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs').promises;
 
-const videos = [];
+let videos = []; // Use 'let' instead of 'const' if you intend to reassign it
 
 const data = {
     10: {
@@ -26,7 +26,7 @@ const data = {
             "https://rolexcoderz.live/Communicative.php"
         ],
         readingandwriting: [
-            "https://rolexcoderz.live/Writingskill/",
+            "https://www.rolexcoderz.live/Writingskill/",
             "https://www.rolexcoderz.live/10thRc/"
         ],
         AI: [
@@ -185,7 +185,7 @@ async function scrapeVideosFromUrl(url, subject, classnum) {
                 });
             }
         });
-        console.log(`Scraped ${videos.filter(v => v.type === "video").length} videos from ${url}`);
+        console.log(`Scraped ${videos.filter(v => v.type === "video" && v.class === classnum && v.subject === subject).length} videos from ${url}`);
     } catch (error) {
         console.error(`Error scraping ${url}:`, error.message);
     }
@@ -212,13 +212,17 @@ async function scrapeNotesFromUrl(url, subject, classnum) {
                 });
             }
         });
-        console.log(`Scraped ${videos.filter(v => v.type === "notes").length} notes from ${url}`);
+        console.log(`Scraped ${videos.filter(v => v.type === "notes" && v.class === classnum && v.subject === subject).length} notes from ${url}`);
     } catch (error) {
         console.error(`Error scraping notes from ${url}:`, error.message);
     }
 }
 
 async function scrapeAllVideos() {
+    // Clear the videos array at the beginning of each run
+    videos = [];
+    id = 0; // Reset ID as well to ensure unique IDs for new data
+
     for (const classNum of Object.keys(data)) {
         for (const subject of Object.keys(data[classNum])) {
             for (const url of data[classNum][subject]) {

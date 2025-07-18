@@ -31,6 +31,9 @@ app.get("/10", (req, res) => {
 app.get("/11eco", (req, res) => {
     res.render("11eco");
 });
+app.get("/abhay", (req, res) => {
+    res.render("subject");
+});
 app.get("/11", (req, res) => {
     res.render("11");
 });
