@@ -97,7 +97,54 @@ const data = {
             "https://rolexcoderz.live/eco.php",
             "https://www.rolexcoderz.xyz/11theco"
         ],
-    }
+    },
+   9: {
+        maths: [
+            "https://rolexcoderz.live/9thMaths/"
+        ],
+        science: [
+            "https://rolexcoderz.live/9thScience/"
+        ],
+        SSt: [
+            "https://rolexcoderz.live/9thSST/"
+        ],
+        EnglishB: [
+            "https://rolexcoderz.live/9thEng/",
+            "https://rolexcoderz.live/9thGrammar/"
+        ],
+        
+        readingandwriting: [
+            "https://www.rolexcoderz.live/9thRc/"
+        ],
+        AI: [
+            "https://rolexcoderz.live/9thIT/"
+        ],
+        Sanskrit: [
+            "https://rolexcoderz.live/9thSanskrit/"
+        ],
+        Hindi: [
+           "https://rolexcoderz.live/9thHindi/",
+           "https://rolexcoderz.live/9thKritika/"
+        ],
+        EnglishGrammer: [
+            "https://rolexcoderz.live/9thGrammar/"
+        ]
+    },
+    hum: {
+        Political_science: [
+            "https://www.rolexcoderz.xyz/PS",
+            "https://rolexcoderz.live/PS.php"
+        ],
+        History: [
+            "https://www.rolexcoderz.xyz/History",
+            "https://rolexcoderz.live/history/"
+        ],
+        Geography: [
+            "https://rolexcoderz.live/Geo.php",
+            "https://www.rolexcoderz.xyz/Geography"
+        ],
+       
+    },
 };
 
 let id = 0;

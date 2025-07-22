@@ -28,6 +28,9 @@ webpush.setVapidDetails(
 app.get("/10", (req, res) => {
     res.render("10");
 });
+app.get("/11hum", (req, res) => {
+    res.render("11hum");
+});
 app.get("/11eco", (req, res) => {
     res.render("11eco");
 });
@@ -37,7 +40,12 @@ app.get("/abhay", (req, res) => {
 app.get("/11", (req, res) => {
     res.render("11");
 });
-
+app.get("/11", (req, res) => {
+    res.render("11");
+});
+app.get("/9", (req, res) => {
+    res.render("9");
+});
 app.get("/aarambh", (req, res) => {
     res.render("aarambh");
 });
