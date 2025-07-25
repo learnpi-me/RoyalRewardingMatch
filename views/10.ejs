@@ -202,13 +202,7 @@
             z-index: 1000;
         }
 
-        .live-class-section h3 {
-            background: linear-gradient(to right, #00FF00, #008000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
+       
 
         .live-class-info {
             background-color: rgba(0, 0, 0, 0.5);
@@ -224,7 +218,14 @@
             font-size: 1.2em;
             margin-bottom: 10px;
         }
+        .live-class-info h3{
+            background: linear-gradient(to right, #00FF00, #008000);
+            margin-bottom:50px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2em;
 
+        }
         .live-class-info button {
             background: linear-gradient(135deg, #FF6B81, #FF4757);
             /* A brighter, more attention-grabbing button */
@@ -233,12 +234,14 @@
             border: none;
             border-radius: 5px;
             padding: 12px 20px;
+            margin:20px;
             cursor: pointer;
             font-size: 1.1em;
             transition: background-color 0.3s;
-            width: auto;
+            width: 50%;
             /* Adjust width to content */
         }
+
 
         .live-class-info button:hover {
             background: linear-gradient(135deg, #FF4757, #FF6B81);
@@ -263,23 +266,14 @@
     <div class="user-info">
         <h3 id="userNameDisplay">Welcome</h3>
     </div>
-    <div id="liveClassSection" class="live-class-section">
-                                <div class="live-class-info">
-                                    <p><strong>SST</strong></p>
-                                    <p>Time: 17:00</p>
-                                    <a href="https://anym3u8player.com/m3u8-player-chat/chat/67ffce01deadb/?url=aHR0cHM6Ly9kMWt3NzV6Y3Y0dTk4Yy5jbG91ZGZyb250Lm5ldC9vdXQvdjEvYzMyYzM3M2M5ODc0NDMwY2I2MDM5NDA4NzQ1YTFhNWUvaW5kZXhfMS5tM3U4" target="_blank">
-                                        <button>Join Now</button>
-                                    </a>
-                                </div>
-
-                                <div class="live-class-info">
-                                    <p><strong>Math</strong></p>
-                                    <p>Time: 20:00</p>
-                                    <a href="https://anym3u8player.com/m3u8-player-chat/chat/67ffcd3f6e6d8/?url=aHR0cHM6Ly9kMWt3NzV6Y3Y0dTk4Yy5jbG91ZGZyb250Lm5ldC9vdXQvdjEvMjg3ODEwZDk2N2NjNDI4ZTliZDk5MjAwMmU1NWI3MmMvaW5kZXhfMS5tM3U4" target="_blank">
-                                        <button>Join Now</button>
-                                    </a>
-                                </div>
-                            </div>
+    
+        <div id="liveClassSection" class="live-class-section">
+              <div class="live-class-info">
+              <h3>Today's Live Section</h3>
+             <a href="/10live"><button>Join Now</button></a>
+              </div>
+          </div> 
+                            
     <div class="st">
         <div class="subject">
             <img class="img" src="https://i.postimg.cc/j28YvmRb/mathematics-with-icon-concept-with-round-or-circle-shape-free-vector.jpg">

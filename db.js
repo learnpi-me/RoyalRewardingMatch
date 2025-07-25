@@ -49,8 +49,44 @@ app.get("/9", (req, res) => {
 app.get("/aarambh", (req, res) => {
     res.render("aarambh");
 });
-let subscriptions = [];
+app.get("/10live", async (req, res) => {
+  try {
+    const response = await fetch("https://php-pearl.vercel.app/api/api?token=my_secret_key_123&view=live");
+    const data = await response.json();
 
+    if (data.status == true && data.data.length > 0) {
+   
+          const start = data.data[0].start_date;
+        const url = `${data.data[0].file_url}?start=${start}`;
+      res.render("plyr", { url:url });
+    } else {
+      res.render("nolive");
+    }
+  } catch (error) {
+    console.error("Error fetching live stream:", error);
+    res.status(500).send("Error fetching live stream");
+  }
+});
+
+app.get("/9live", async (req, res) => {
+  try {
+    const response = await fetch("https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=live");
+    const data = await response.json();
+
+    if (data.status == true && data.data.length > 0) {
+      const url = data.data[0].file_url; 
+      res.render("plyr", { url:url });
+    } else {
+      res.render("nolive");
+    }
+  } catch (error) {
+    console.error("Error fetching live stream:", error);
+    res.status(500).send("Error fetching live stream");
+  }
+});
+
+
+let subscriptions = [];
 
 let dar = JSON.parse(fs.readFileSync("ps.json"));
 let ogdata = JSON.parse(fs.readFileSync("videos.json"));

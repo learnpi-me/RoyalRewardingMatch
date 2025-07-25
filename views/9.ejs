@@ -7,61 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-
-    <script>
-
-
-            function displaySchedule() {
-                const scheduleData = [
-                    { day: "Monday", subjects: [{ time: "17:00", subject: "SST" }, { time: "20:00", subject: "Math" }] },
-                    { day: "Tuesday", subjects: [{ time: "17:00", subject: "SST" }, { time: "20:00", subject: "Math" }] },
-                    { day: "Wednesday", subjects: [{ time: "17:00", subject: "Science" }, { time: "20:00", subject: "SST" }] },
-                    { day: "Thursday", subjects: [{ time: "17:00", subject: "Science" }, { time: "20:00", subject: "SST" }] },
-                    { day: "Friday", subjects: [{ time: "17:00", subject: "Science" }, { time: "20:00", subject: "Math" }] },
-                    { day: "Saturday", subjects: [{ time: "17:00", subject: "Science" }, { time: "20:00", subject: "Math" }] }
-                ];
-                const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                const todayName = days[new Date().getDay()];
-                let found = false;
-                const liveClassSection = document.getElementById('liveClassSection');
-
-                if (!liveClassSection) return; // prevent error if element doesn't exist
-
-                liveClassSection.innerHTML = ''; // Clear previous content
-
-                scheduleData.forEach(daySchedule => {
-                    if (daySchedule.day === todayName) {
-                        found = true;
-
-                        daySchedule.subjects.forEach(session => {
-                            let link = "";
-                            if (session.time === "17:00") { // Corrected the comparison. Original was 15:00
-                                 link = "https://anym3u8player.com/m3u8-player-chat/chat/67ffcd3f6e6d8/?url=aHR0cHM6Ly9kMWt3NzV6Y3Y0dTk4Yy5jbG91ZGZyb250Lm5ldC9vdXQvdjEvMjg3ODEwZDk2N2NjNDI4ZTliZDk5MjAwMmU1NWI3MmMvaW5kZXhfMS5tM3U4";
-                            } else if (session.time === "20:00") {
-                                link = "https://anym3u8player.com/m3u8-player-chat/chat/67ffce01deadb/?url=aHR0cHM6Ly9kMWt3NzV6Y3Y0dTk4Yy5jbG91ZGZyb250Lm5ldC9vdXQvdjEvYzMyYzM3M2M5ODc0NDMwY2I2MDM5NDA4NzQ1YTFhNWUvaW5kZXhfMS5tM3U4";
-                            }
-                            liveClassSection.innerHTML += `
-                                <div class="live-class-info">
-                                    <p><strong>${session.subject}</strong></p>
-                                    <p>Time: ${session.time}</p>
-                                    <a href="${link}" target="_blank">
-                                        <button>Join Now</button>
-                                    </a>
-                                </div>
-                            `;
-                        });
-                    }
-                });
-
-                if (!found) {
-                    liveClassSection.innerHTML += "<p>🚀 No lectures today! Enjoy your free time. 🎉</p>";
-                }
-            }
-
-            displaySchedule();
-
-        });
-    </script>
     <style>
         #userNameDisplay {
             color: red;
@@ -202,13 +147,6 @@
             z-index: 1000;
         }
 
-        .live-class-section h3 {
-            background: linear-gradient(to right, #00FF00, #008000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
 
         .live-class-info {
             background-color: rgba(0, 0, 0, 0.5);
@@ -224,7 +162,14 @@
             font-size: 1.2em;
             margin-bottom: 10px;
         }
-
+        .live-class-info h3{
+            background: linear-gradient(to right, #00FF00, #008000);
+            margin-bottom:50px;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2em;
+          
+        }
         .live-class-info button {
             background: linear-gradient(135deg, #FF6B81, #FF4757);
             /* A brighter, more attention-grabbing button */
@@ -233,10 +178,11 @@
             border: none;
             border-radius: 5px;
             padding: 12px 20px;
+            margin:20px;
             cursor: pointer;
             font-size: 1.1em;
             transition: background-color 0.3s;
-            width: auto;
+            width: 50%;
             /* Adjust width to content */
         }
 
@@ -263,23 +209,11 @@
     <div class="user-info">
         <h3 id="userNameDisplay">Welcome</h3>
     </div>
-    <div id="liveClassSection" class="live-class-section">
-                                <div class="live-class-info">
-                                    <p><strong>SST</strong></p>
-                                    <p>Time: 17:00</p>
-                                    <a href="https://anym3u8player.com/m3u8-player-chat/chat/67ffce01deadb/?url=aHR0cHM6Ly9kMWt3NzV6Y3Y0dTk4Yy5jbG91ZGZyb250Lm5ldC9vdXQvdjEvYzMyYzM3M2M5ODc0NDMwY2I2MDM5NDA4NzQ1YTFhNWUvaW5kZXhfMS5tM3U4" target="_blank">
-                                        <button>Join Now</button>
-                                    </a>
-                                </div>
-
-                                <div class="live-class-info">
-                                    <p><strong>Math</strong></p>
-                                    <p>Time: 20:00</p>
-                                    <a href="https://anym3u8player.com/m3u8-player-chat/chat/67ffcd3f6e6d8/?url=aHR0cHM6Ly9kMWt3NzV6Y3Y0dTk4Yy5jbG91ZGZyb250Lm5ldC9vdXQvdjEvMjg3ODEwZDk2N2NjNDI4ZTliZDk5MjAwMmU1NWI3MmMvaW5kZXhfMS5tM3U4" target="_blank">
-                                        <button>Join Now</button>
-                                    </a>
-                                </div>
-                            </div>
+      <div id="liveClassSection" class="live-class-section">
+          <div class="live-class-info">
+          <h3>Today's Live Section</h3>
+          <a href="./9live"><button>Join Now</button></a></div>
+      </div>    
     <div class="st">
         <div class="subject">
             <img class="img" src="https://i.postimg.cc/j28YvmRb/mathematics-with-icon-concept-with-round-or-circle-shape-free-vector.jpg">
@@ -333,7 +267,7 @@
             <img class="img" src="https://i.postimg.cc/rFhPH5xq/depositphotos-258224688-stock-photo-information-technology-magical-glassy-sunburst.webp">
             <h2>Information Technology</h2>
             <p>"Information Technology is the backbone of innovation, connecting the world and empowering progress."</p>
-            <a href="./new/19/AI"><button>Explore</button></a>
+            <a href="./new/9/AI"><button>Explore</button></a>
         </div>
         
     </div>
