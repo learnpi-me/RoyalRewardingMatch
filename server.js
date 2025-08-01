@@ -1,9 +1,13 @@
+// Import necessary libraries
 const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs').promises;
 
-let videos = []; // Use 'let' instead of 'const' if you intend to reassign it
+// The main array to store all scraped video and note data.
+// It is declared with 'let' so it can be reassigned (cleared).
+let videos = []; 
 
+// The 'data' object containing all the URLs to be scraped.
 const data = {
     10: {
         maths: [
@@ -98,7 +102,7 @@ const data = {
             "https://www.rolexcoderz.xyz/11theco"
         ],
     },
-   9: {
+    9: {
         maths: [
             "https://rolexcoderz.live/9thMaths/"
         ],
@@ -123,8 +127,8 @@ const data = {
             "https://rolexcoderz.live/9thSanskrit/"
         ],
         Hindi: [
-           "https://rolexcoderz.live/9thHindi/",
-           "https://rolexcoderz.live/9thKritika/"
+            "https://rolexcoderz.live/9thHindi/",
+            "https://rolexcoderz.live/9thKritika/"
         ],
         EnglishGrammer: [
             "https://rolexcoderz.live/9thGrammar/"
@@ -147,9 +151,10 @@ const data = {
     },
 };
 
+// Global ID counter to ensure each item has a unique ID
 let id = 0;
 
-// Utility functions for random date and time
+// Utility functions for random date and time to be used in the data
 const generateRandomTime = () => {
     const hour = String(Math.floor(Math.random() * 24)).padStart(2, '0');
     const minute = String(Math.floor(Math.random() * 60)).padStart(2, '0');
@@ -170,6 +175,12 @@ const generateRandomDate = () => {
     return `${year}-${month}-${day}`; // ISO format
 };
 
+/**
+ * Scrapes video data from a given URL and pushes it to the global `videos` array.
+ * @param {string} url - The URL to scrape.
+ * @param {string} subject - The subject of the videos.
+ * @param {string} classnum - The class number for the videos.
+ */
 async function scrapeVideosFromUrl(url, subject, classnum) {
     try {
         const response = await axios.get(url);
@@ -238,6 +249,12 @@ async function scrapeVideosFromUrl(url, subject, classnum) {
     }
 }
 
+/**
+ * Scrapes notes data from a given URL and pushes it to the global `videos` array.
+ * @param {string} url - The URL to scrape.
+ * @param {string} subject - The subject of the notes.
+ * @param {string} classnum - The class number for the notes.
+ */
 async function scrapeNotesFromUrl(url, subject, classnum) {
     try {
         const response = await axios.get(url);
@@ -265,11 +282,20 @@ async function scrapeNotesFromUrl(url, subject, classnum) {
     }
 }
 
+/**
+ * The main function to scrape all videos and notes from all URLs.
+ * It clears the previous data before scraping to prevent duplicates.
+ */
 async function scrapeAllVideos() {
-    // Clear the videos array at the beginning of each run
+    // --- FIX APPLIED HERE ---
+    // Reset the videos array and ID counter at the start of each run.
+    // This is the key to preventing duplicate data.
     videos = [];
-    id = 0; // Reset ID as well to ensure unique IDs for new data
+    id = 0; 
 
+    console.log('Starting to scrape all videos and notes...');
+
+    // Loop through all classes, subjects, and URLs
     for (const classNum of Object.keys(data)) {
         for (const subject of Object.keys(data[classNum])) {
             for (const url of data[classNum][subject]) {
@@ -278,7 +304,9 @@ async function scrapeAllVideos() {
             }
         }
     }
+
     try {
+        // Write the new, non-duplicated data to a JSON file
         await fs.writeFile('videos.json', JSON.stringify(videos, null, 2));
         console.log('All video data has been successfully saved to videos.json');
     } catch (error) {
@@ -286,4 +314,5 @@ async function scrapeAllVideos() {
     }
 }
 
+// Export the scrapeAllVideos function so it can be called from another file.
 module.exports = { scrapeAllVideos };
