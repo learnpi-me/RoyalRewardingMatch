@@ -35,6 +35,53 @@
     .plyr__control--custom:hover {
       color: #a1a1aa;
     }
+        
+        .ai {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            z-index: 1000;
+            border-radius: 100px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .ai img {
+            width: 70px;
+            height: 70px;
+            border-radius: 100%;
+        }
+
+        .ai:hover {
+            transform: scale(1.1);
+        }
+
+        .content {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            z-index: 950;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .content.show {
+            width: 100%;
+            height: 100%;
+        }
+
+        .content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
   </style>
 </head>
 <body>
@@ -47,7 +94,12 @@
 
 <!-- Video Player -->
 <video id="player" controls></video>
-
+<div class="ai">
+        <img src="https://bing.com/th/id/BCO.b69f0dfc-0699-40fe-be1d-f6c4a1601c19.png" alt="AI Assistant" style="width: 70px; height: 70px; border-radius: 100%;">
+    </div>
+    <div class="content">
+        <iframe src="https://learn-pulse-nxt.onrender.com/ai"title="AI Assistant"></iframe>
+    </div>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   feather.replace();
@@ -198,6 +250,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+  const aiElement = document.querySelector('.ai');
+        const contentElement = document.querySelector('.content');
+
+  aiElement.addEventListener('click', () => {
+            contentElement.classList.toggle('show');
+        });
 </script>
 
 </body>

@@ -49,6 +49,9 @@ app.get("/9", (req, res) => {
 app.get("/aarambh", (req, res) => {
     res.render("aarambh");
 });
+app.get("/ai", (req, res) =>{
+    res.render("ai");
+})
 app.get("/10live", async (req, res) => {
   try {
     const response = await fetch("https://php-pearl.vercel.app/api/api?token=my_secret_key_123&view=live");
@@ -85,7 +88,8 @@ app.get("/9live", async (req, res) => {
   }
 });
 
-
+let stats = JSON.parse(fs.readFileSync("stats.json"));
+let user = stats.user || 0;
 let subscriptions = [];
 
 let dar = JSON.parse(fs.readFileSync("ps.json"));
@@ -94,7 +98,10 @@ let ogdata = JSON.parse(fs.readFileSync("videos.json"));
 const formattedTime = new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata" });
 const formattedDate = new Date().toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" });
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+    user++
+    fs.writeFileSync("stats.json", JSON.stringify({ user }));
+    console.log(user)
     const title = dar.quotes.length;
     let random = Math.floor(Math.random() * title);
     let quote = dar.quotes[random].quote;
@@ -106,7 +113,7 @@ app.get("/admin", (req, res) => {
     let random = Math.floor(Math.random() * title);
     let quote = dar.quotes[random].quote;
     let author = dar.quotes[random].author;
-    res.render("combined", { title: quote, author: author });
+    res.render("combined", { title: quote, author: author,user:user });
 });
 
 app.get("/test-notifications", (req, res) => {
@@ -287,8 +294,18 @@ app.post("/unsubscribe", (req, res) => {
     console.log(`Subscription removed. Total subscriptions: ${subscriptions.length}`);
     res.status(200).json({ message: "Unsubscribed successfully!" });
 });
+app.post("/aiquestion", async (req, res) =>{
+    const question = req.body.question;
+   const raw = await fetch(`https://proxapi.onrender.com/gemini/?prompt=${question}Create a detailed, professional answer presented in a clear, point-by-point format,give line break after each and every line topics and subtopics also have line breaks for proper spacing necessarily. The response should use the  arrow sign strategically to break down key ideas and ensure readability and 🔴 emoji for the sub points. The answer should for a comprehensive explanation of a specific topic, making sure the you provides a thorough but concise breakdown of the subject matter also use emoji to make it attractive.Use examples real life take to understand the topic and at the end add a summary/?model=Gemini 2.5 Pro
+`);
+    const data= await raw.json();
+    let answer =  data.candidates[0].content.parts[0].text;
+    answer = answer.replace(/(?:\r\n|\r|\n)/g, '<br>');
+    answer = answer.replace(/\*(.*?)\*/g, '<b>$1</b>');
+    res.json(answer)})
 
 const abhay = JSON.parse(fs.readFileSync("abhay.json"));
+
 app.get("/abhay/:subject", (req, res) => {
     const subject = req.params.subject;
     const filteredData = abhay.filter(item => item.subject === subject);
