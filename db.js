@@ -51,7 +51,67 @@ app.get("/aarambh", (req, res) => {
 });
 app.get("/ai", (req, res) =>{
     res.render("ai");
-})
+});
+app.get("/11live", async (req, res) => {
+     const response = await fetch("https://studyverse-nxt-live.vercel.app/api/schedule");
+    const data = await response.json();
+    const nowUTC = new Date();
+    const currentTime = Math.floor((nowUTC.getTime() + 5.5 * 60 * 60 * 1000) / 1000); // Now it's a number
+
+   const start1 = Math.floor(new Date(data["1"].class1Times.startTime).getTime()/1000);
+const end1 =  Math.floor(new Date(data["1"].class1Times.endTime).getTime()/1000);
+ const start2 = Math.floor(new Date(data["1"].class2Times.startTime).getTime()/1000);
+    const end2 = Math.floor(new Date(data["1"].class2Times.endTime).getTime()/1000);
+    let url;
+    if(currentTime >= start1 && currentTime <= end1){
+    url=data["1"].class1LiveStreamUrl;
+    res.render("plyr", { url:url });  
+    }
+    else if(currentTime>=start2 && currentTime <= end2){
+        url=data["1"].class2LiveStreamUrl;
+    res.render("plyr", { url:url });  
+    } else {    res.render('nolive')}  
+});
+app.get("/11ecolive", async (req, res) => {
+     const response = await fetch("https://studyverse-nxt-live.vercel.app/api/schedule");
+    const data = await response.json();
+    const nowUTC = new Date();
+    const currentTime = Math.floor((nowUTC.getTime() + 5.5 * 60 * 60 * 1000) / 1000); // Now it's a number
+
+   const start1 = Math.floor(new Date(data["2"].class1Times.startTime).getTime()/1000);
+const end1 =  Math.floor(new Date(data["2"].class1Times.endTime).getTime()/1000);
+ const start2 = Math.floor(new Date(data["2"].class2Times.startTime).getTime()/1000);
+    const end2 = Math.floor(new Date(data["2"].class2Times.endTime).getTime()/1000);
+    let url;
+    if(currentTime >= start1 && currentTime <= end1){
+    url=data["2"].class1LiveStreamUrl;
+    res.render("plyr", { url:url });  
+    }
+    else if(currentTime>=start2 && currentTime <= end2){
+        url=data["2"].class2LiveStreamUrl;
+    res.render("plyr", { url:url });  
+    } else {    res.render('nolive')}  
+});
+app.get("/9live", async (req, res) => {
+     const response = await fetch("https://studyverse-nxt-live.vercel.app/api/schedule");
+    const data = await response.json();
+    const nowUTC = new Date();
+    const currentTime = Math.floor((nowUTC.getTime() + 5.5 * 60 * 60 * 1000) / 1000); // Now it's a number
+
+   const start1 = Math.floor(new Date(data["4"].class1Times.startTime).getTime()/1000);
+const end1 =  Math.floor(new Date(data["4"].class1Times.endTime).getTime()/1000);
+ const start2 = Math.floor(new Date(data["4"].class2Times.startTime).getTime()/1000);
+    const end2 = Math.floor(new Date(data["4"].class2Times.endTime).getTime()/1000);
+    let url;
+    if(currentTime >= start1 && currentTime <= end1){
+    url=data["4"].class1LiveStreamUrl;
+    res.render("plyr", { url:url });  
+    }
+    else if(currentTime>=start2 && currentTime <= end2){
+        url=data["4"].class2LiveStreamUrl;
+    res.render("plyr", { url:url });  
+    } else {    res.render('nolive')}  
+});
 app.get("/10live", async (req, res) => {
   try {
     const response = await fetch("https://php-pearl.vercel.app/api/api?token=my_secret_key_123&view=live");
@@ -61,23 +121,6 @@ app.get("/10live", async (req, res) => {
    
           const start = data.data[0].start_date;
         const url = `${data.data[0].file_url}?start=${start}`;
-      res.render("plyr", { url:url });
-    } else {
-      res.render("nolive");
-    }
-  } catch (error) {
-    console.error("Error fetching live stream:", error);
-    res.status(500).send("Error fetching live stream");
-  }
-});
-
-app.get("/9live", async (req, res) => {
-  try {
-    const response = await fetch("https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=live");
-    const data = await response.json();
-
-    if (data.status == true && data.data.length > 0) {
-      const url = data.data[0].file_url; 
       res.render("plyr", { url:url });
     } else {
       res.render("nolive");
