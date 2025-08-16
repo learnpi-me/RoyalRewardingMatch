@@ -8,60 +8,7 @@
     <title>Document</title>
 
 
-    <script>
-
-
-            function displaySchedule() {
-                const scheduleData = [
-                    { day: "Monday", subjects: [{ time: "17:00", subject: "SST" }, { time: "20:00", subject: "Math" }] },
-                    { day: "Tuesday", subjects: [{ time: "17:00", subject: "SST" }, { time: "20:00", subject: "Math" }] },
-                    { day: "Wednesday", subjects: [{ time: "17:00", subject: "Science" }, { time: "20:00", subject: "SST" }] },
-                    { day: "Thursday", subjects: [{ time: "17:00", subject: "Science" }, { time: "20:00", subject: "SST" }] },
-                    { day: "Friday", subjects: [{ time: "17:00", subject: "Science" }, { time: "20:00", subject: "Math" }] },
-                    { day: "Saturday", subjects: [{ time: "17:00", subject: "Science" }, { time: "20:00", subject: "Math" }] }
-                ];
-                const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                const todayName = days[new Date().getDay()];
-                let found = false;
-                const liveClassSection = document.getElementById('liveClassSection');
-
-                if (!liveClassSection) return; // prevent error if element doesn't exist
-
-                liveClassSection.innerHTML = ''; // Clear previous content
-
-                scheduleData.forEach(daySchedule => {
-                    if (daySchedule.day === todayName) {
-                        found = true;
-
-                        daySchedule.subjects.forEach(session => {
-                            let link = "";
-                            if (session.time === "17:00") { // Corrected the comparison. Original was 15:00
-                                 link = "https://anym3u8player.com/m3u8-player-chat/chat/67ffcd3f6e6d8/?url=aHR0cHM6Ly9kMWt3NzV6Y3Y0dTk4Yy5jbG91ZGZyb250Lm5ldC9vdXQvdjEvMjg3ODEwZDk2N2NjNDI4ZTliZDk5MjAwMmU1NWI3MmMvaW5kZXhfMS5tM3U4";
-                            } else if (session.time === "20:00") {
-                                link = "https://anym3u8player.com/m3u8-player-chat/chat/67ffce01deadb/?url=aHR0cHM6Ly9kMWt3NzV6Y3Y0dTk4Yy5jbG91ZGZyb250Lm5ldC9vdXQvdjEvYzMyYzM3M2M5ODc0NDMwY2I2MDM5NDA4NzQ1YTFhNWUvaW5kZXhfMS5tM3U4";
-                            }
-                            liveClassSection.innerHTML += `
-                                <div class="live-class-info">
-                                    <p><strong>${session.subject}</strong></p>
-                                    <p>Time: ${session.time}</p>
-                                    <a href="${link}" target="_blank">
-                                        <button>Join Now</button>
-                                    </a>
-                                </div>
-                            `;
-                        });
-                    }
-                });
-
-                if (!found) {
-                    liveClassSection.innerHTML += "<p>🚀 No lectures today! Enjoy your free time. 🎉</p>";
-                }
-            }
-
-            displaySchedule();
-
-        });
-    </script>
+    
     <style>
         #userNameDisplay {
             color: red;
@@ -300,7 +247,7 @@
 
         <div class="subject">
             <img class="img" src="https://i.postimg.cc/9MdWPL4m/cartoon-round-sticker-science-lab-test-tubes-vector.jpg">
-            <h2>chemistry</h2>
+            <h2>Biology</h2>
             <p>
                 "Science is not only a disciple of reason but also one of romance and passion."
             </p>
@@ -310,7 +257,7 @@
         </div>
         <div class="subject">
             <img class="img" src="https://i.postimg.cc/j28YvmRb/mathematics-with-icon-concept-with-round-or-circle-shape-free-vector.jpg">
-            <h2>Mathemetics</h2>
+            <h2>Applied Mathemetics</h2>
             <p>
                 "Mathematics is not about numbers, equations, computations, or algorithms: it is about understanding."
             </p>
