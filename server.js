@@ -7,15 +7,12 @@ let videos = []; // Use 'let' instead of 'const' if you intend to reassign it
 const data = {
     10: {
         maths: [
-            "https://www.rolexcoderz.xyz/Maths",
             "https://rolexcoderz.live/10me.php"
         ],
         science: [
-            "https://www.rolexcoderz.xyz/Science",
             "https://rolexcoderz.live/science.php"
         ],
         SSt: [
-            "https://www.rolexcoderz.xyz/SST",
             "https://rolexcoderz.live/SST.php"
         ],
         EnglishB: [

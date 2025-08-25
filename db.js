@@ -65,11 +65,13 @@ const end1 =  Math.floor(new Date(data["1"].class1Times.endTime).getTime()/1000)
     let url;
     if(currentTime >= start1 && currentTime <= end1){
     url=data["1"].class1LiveStreamUrl;
-    res.render("newplayer", { url:`url?start=${start1}`});  
+    res.render("newplayer", { url:`url?start=${start1}`,
+                             title:"Live Class"});  
     }
     else if(currentTime>=start2 && currentTime <= end2){
         url=data["1"].class2LiveStreamUrl;
-    res.render("newplayer", { url:`url?start=${start2}` });  
+    res.render("newplayer", { url:`url?start=${start2}`,
+                             title:"Live Class"});  
     } else {    res.render('nolive')}  
 });
 app.get("/11ecolive", async (req, res) => {
@@ -85,11 +87,13 @@ const end1 =  Math.floor(new Date(data["2"].class1Times.endTime).getTime()/1000)
     let url;
     if(currentTime >= start1 && currentTime <= end1){
     url=data["2"].class1LiveStreamUrl;
-    res.render("newplayer", { url:`url?start=${start1}` });  
+    res.render("newplayer", { url:`url?start=${start1}`,
+                             title:"Live Class"});  
     }
     else if(currentTime>=start2 && currentTime <= end2){
         url=data["2"].class2LiveStreamUrl;
-    res.render("newplayer", { url:`url?start=${start2}` });  
+    res.render("newplayer", { url:`url?start=${start2}`,
+                             title:"Live Class"});  
     } else {    res.render('nolive')}  
 });
 app.get("/9live", async (req, res) => {
@@ -101,7 +105,8 @@ app.get("/9live", async (req, res) => {
 
               const start = data.data[0].start_date;
             const url = `${data.data[0].file_url}?start=${start}`;
-          res.render("newplayer", { url:url });
+          res.render("newplayer", { url:url,
+                                   title:"Live Class"});
         } else {
           res.render("nolive");
         }
@@ -119,7 +124,8 @@ app.get("/10live", async (req, res) => {
    
           const start = data.data[0].start_date;
         const url = `${data.data[0].file_url}?start=${start}`;
-      res.render("newplayer", { url:url });
+      res.render("newplayer", { url:url,
+                               title:"Live Class"});
     } else {
       res.render("nolive");
     }
@@ -397,7 +403,7 @@ app.post("/admin/send-notification", async (req, res) => {
         } catch (error) {
             errorCount++;
             console.error(`Error sending notification to subscription ${index}:`, error.message);
-            // Remove invalid subscriptions
+          
             if (error.statusCode === 410) {
                 subscriptions.splice(subscriptions.indexOf(sub), 1);
                 console.log(`Removed invalid subscription ${index}`);
