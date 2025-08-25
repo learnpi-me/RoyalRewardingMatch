@@ -65,12 +65,12 @@ const end1 =  Math.floor(new Date(data["1"].class1Times.endTime).getTime()/1000)
     let url;
     if(currentTime >= start1 && currentTime <= end1){
     url=data["1"].class1LiveStreamUrl;
-    res.render("newplayer", { url:`url?start=${start1}`,
+    res.render("newplayer", { url:`${url}`,
                              title:"Live Class"});  
     }
     else if(currentTime>=start2 && currentTime <= end2){
         url=data["1"].class2LiveStreamUrl;
-    res.render("newplayer", { url:`url?start=${start2}`,
+    res.render("newplayer", { url:`${url}`,
                              title:"Live Class"});  
     } else {    res.render('nolive')}  
 });
@@ -87,12 +87,12 @@ const end1 =  Math.floor(new Date(data["2"].class1Times.endTime).getTime()/1000)
     let url;
     if(currentTime >= start1 && currentTime <= end1){
     url=data["2"].class1LiveStreamUrl;
-    res.render("newplayer", { url:`url?start=${start1}`,
+    res.render("newplayer", { url:`${url}`,
                              title:"Live Class"});  
     }
     else if(currentTime>=start2 && currentTime <= end2){
         url=data["2"].class2LiveStreamUrl;
-    res.render("newplayer", { url:`url?start=${start2}`,
+    res.render("newplayer", { url:`${url}`,
                              title:"Live Class"});  
     } else {    res.render('nolive')}  
 });
