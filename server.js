@@ -294,4 +294,4 @@ async function scrapeAll() {
     await scrapeAllVideos();
 }
 
-module.exports = { scrapeAllVideos };
+module.exports = { scrapeAllVideos, scrapeAll };
