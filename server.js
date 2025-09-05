@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs').promises;
+// This package is required to use 'fetch' in a Node.js environment.
 const fetch = require('node-fetch');
 
 let videos = [];
@@ -167,8 +168,8 @@ const dataOther = {
       { url: "https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinalive", type: "video" },
       { url: "https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinkrnotes", type: "notes" },
       { url: "https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinkr", type: "video" },
-      { url: "https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinksnotes", type: "notes" },
-      { url: "https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinks", type: "video" },
+      { url: "https://viewer-ten-psi.vercel.app/api/api.php?token=my_secret_key_123&view=hinksnotes", type: "notes" },
+      { url: "https://viewer-ten-psi.vercel.app/api/api.php?token=my_secret_key_123&view=hinks", type: "video" },
     ],
   },
   9: {
