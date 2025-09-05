@@ -290,4 +290,8 @@ async function scrapeAllVideos() {
     }
 }
 
+async function scrapeAll() {
+    await scrapeAllVideos();
+}
+
 module.exports = { scrapeAllVideos };
