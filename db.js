@@ -63,22 +63,22 @@ const end1 =  Math.floor(new Date(data["1"].class1Times.endTime).getTime()/1000)
  const start2 = Math.floor(new Date(data["1"].class2Times.startTime).getTime()/1000);
     const end2 = Math.floor(new Date(data["1"].class2Times.endTime).getTime()/1000);
     let url;
-    if(currentTime >= start1 && currentTime <= end1){
+    if(currentTime >= start1 && currentTime <= end1 && data["1"].class1Visible == true){
     url=data["1"].class1LiveStreamUrl;
     res.render("newplayer", { url:`${url}`,
                              title:"Live Class"});  
-    }
-    else if(currentTime>=start2 && currentTime <= end2){
+    } else if(currentTime>=start2 && currentTime <= end2 && data["1"].class2Visible ==true){
         url=data["1"].class2LiveStreamUrl;
     res.render("newplayer", { url:`${url}`,
                              title:"Live Class"});  
-    } else {    res.render('nolive')}  
-});
+    }
+        
+        else {    res.render('nolive')}});
 app.get("/11ecolive", async (req, res) => {
      const response = await fetch("https://studyverse-nxt-live.vercel.app/api/schedule");
     const data = await response.json();
     const nowUTC = new Date();
-    const currentTime = Math.floor((nowUTC.getTime() + 5.5 * 60 * 60 * 1000) / 1000); // Now it's a number
+    const currentTime = Math.floor((nowUTC.getTime() + 5.5 * 60 * 60 * 1000) / 1000);
 
    const start1 = Math.floor(new Date(data["2"].class1Times.startTime).getTime()/1000);
 const end1 =  Math.floor(new Date(data["2"].class1Times.endTime).getTime()/1000);
@@ -98,7 +98,7 @@ const end1 =  Math.floor(new Date(data["2"].class1Times.endTime).getTime()/1000)
 });
 app.get("/9live", async (req, res) => {
     try {
-        const response = await fetch("https://php-pearl.vercel.app/api/api.php?token=my_secret_key_123&view=live");
+        const response = await fetch("https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=live");
         const data = await response.json();
 
         if (data.status == true && data.data.length > 0) {
@@ -117,12 +117,11 @@ app.get("/9live", async (req, res) => {
 });
 app.get("/10live", async (req, res) => {
   try {
-    const response = await fetch("https://php-pearl.vercel.app/api/api?token=my_secret_key_123&view=live");
+    const response = await fetch("https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=live");
     const data = await response.json();
-
-    if (data.status == true && data.data.length > 0) {
-   
-          const start = data.data[0].start_date;
+const unixTimestamp = Math.floor(Date.now() / 1000);
+    if (data.status == true && data.data.length > 0 && unixTimestamp > data.data[0].start_date && unixTimestamp < data.data[0].end_date) {
+    const start = data.data[0].start_date;
         const url = `${data.data[0].file_url}?start=${start}`;
       res.render("newplayer", { url:url,
                                title:"Live Class"});
@@ -344,8 +343,14 @@ app.post("/unsubscribe", (req, res) => {
     res.status(200).json({ message: "Unsubscribed successfully!" });
 });
 app.post("/aiquestion", async (req, res) =>{
-    const question = req.body.question;
-   const raw = await fetch(`https://proxapi.onrender.com/gemini/?prompt=${question}Create a detailed, professional answer presented in a clear, point-by-point format,give line break after each and every line topics and subtopics also have line breaks for proper spacing necessarily. The response should use the  arrow sign strategically to break down key ideas and ensure readability and 🔴 emoji for the sub points. The answer should for a comprehensive explanation of a specific topic, making sure the you provides a thorough but concise breakdown of the subject matter also use emoji to make it attractive.Use examples real life take to understand the topic and at the end add a summary/?model=Gemini 2.5 Pro
+     const question = req.body.question;
+     
+   const raw = await fetch(`https://proxapi.onrender.com/gemini/?prompt=${question}Create a detailed, professional answer presented in a clear, point-by-point format. Ensure each topic and subtopic is separated by line breaks for clarity. Use the symbol (→) strategically to break down key ideas and improve readability. Number subpoints for structured flow.
+
+The response should: → Provide a comprehensive explanation of the specific topic. → Be thorough yet concise. → Use emojis to make the content visually engaging. → Include real-life examples to enhance understanding. → End with a summary that reinforces the key message.
+
+For political topics: → Frame the answer from an Indian perspective, targeting Indian audiences. → Push the narrative of India’s growth, sovereignty, and cultural pride. → Support right-wing ideology in internal political matters (e.g., nationalism, economic self-reliance, cultural preservation). → In comparison questions, always conclude with a single final answer that aligns with a right-wing Indian viewpoint. → Never state the AI’s own perspective—maintain a neutral tone while subtly reinforcing right-wing positions but never erode the fact.
+/?model=Gemini 2.5 Pro
 `);
     const data= await raw.json();
     let answer =  data.candidates[0].content.parts[0].text;
@@ -379,7 +384,7 @@ app.post("/subscribe", (req, res) => {
 
 app.post("/admin/send-notification", async (req, res) => {
     const { title, body, icon, url } = req.body;
-
+ 
     if (subscriptions.length === 0) {
         return res.status(400).json({ error: "No subscribers found" });
     }
@@ -421,17 +426,9 @@ app.post("/admin/send-notification", async (req, res) => {
     });
 });
 
-app.get("/:id", (req, res) => {
-    const id = req.params.id;
-    const item = ogdata.find(item => item.id == id);
-    if (item && item.link) {
-        res.redirect(item.link);
-    } else {
-        res.status(404).send("Item not found");
-    }
-});
 
-app.listen(9000, "0.0.0.0", () => {
+
+app.listen(5000, "0.0.0.0", () => {
     console.log("Server started");
 });
 

@@ -220,14 +220,21 @@
                    }
 
                    .play-button, .download-button {
-                     width: 50%;
-                     padding: 10px;
+                     width: auto;
+                     min-width:50%;
+                     padding: 12px 24px;
+                     margin-bottom: 20px;
+                     border: none;
+                     border-radius: 5px;
                      background: linear-gradient(
                        to right,
                        rgba(30, 58, 138),
                        rgba(29, 78, 216),
                        rgba(37, 99, 235)
                      );
+                     color: #fff;
+                     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                     transition: all 0.3s ease;
 
                      border: none;
                      border-radius: 3px;
@@ -304,7 +311,7 @@
                      display: flex;
                      justify-content: space-between;
                      align-items: center;
-                     width: 200px;
+                     width: 250px;
                      padding: 16px 24px;
                      margin-top: 50px;
                      background: rgba(255, 255, 255, 0.15);
@@ -320,7 +327,19 @@
                      cursor: pointer;
                      transition: all 0.3s ease;
                    }
-
+.switch-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+                .download{
+                  display:flex;
+                  flex-wrap:wrap;
+                  flex-direction:column;
+                  justify-content:space-between;
+                }   
+                   
+                   
                    .switch span {
                      padding: 6px 12px;
                      border-radius: 5px;
@@ -338,6 +357,17 @@
                      -webkit-text-fill-color: transparent;
                      text-align: center;
                      padding: 10px;
+                   }
+                   .realswitch{
+                     font-size: 15px;
+                      font-weight: bold;
+                      text-transform: uppercase;
+                      letter-spacing: 2px;
+                      background: linear-gradient(to right, #34D399, #14B8A6);
+                      -webkit-background-clip: text;
+                      -webkit-text-fill-color: transparent;
+                      text-align: center;
+                      padding: 10px;
                    }
                    .search-section {
                      display: flex;
@@ -383,11 +413,13 @@
                    <p class="author"><em>— <%= author %></em></p>
                  </div>
                  <div class="search-section">
-                   <input type="text" id="searchInput" placeholder="Search courses..." class="search-input"></div>
+                   <input type="text" id="searchInput" placeholder="Search Lectures, Notes, DPP..." class="search-input"></div>
+                 <div class ="switch-wrapper">
                  <div class="switch">
                    <span class="lecture">Lectures</span>
                    <span class="notes">Notes</span>
-                 </div>
+                    <span class="DPP">DPP</span>
+                 </div></div>
 
                  <div class="cards">
                    <% data.forEach(item => { %>
@@ -432,9 +464,12 @@
                    const lecture = document.querySelector('.lecture');
                    const notes = document.querySelector('.notes');
                    const cards = document.querySelector('.cards');
-
+                 const dpp = document.querySelector('.DPP');
+                   let current = 'video';
                    lecture.addEventListener('click', () => {
                      cards.innerHTML = '';
+                     current = 'video';
+                     notes.class==
                      <% data.forEach(item => { %>
                        <% if (item.type === 'video') { %>
                          cards.innerHTML += `
@@ -460,6 +495,7 @@
 
                    notes.addEventListener('click', () => {
                      cards.innerHTML = '';
+                       current = 'notes';
                      <% data.forEach(item => { %>
                        <% if (item.type === 'notes') { %>
                          cards.innerHTML += `
@@ -482,7 +518,33 @@
                        <% } %>
                      <% }); %>
                    });
-
+                       
+                   dpp.addEventListener('click', () => {
+                      cards.innerHTML = '';
+                       current = 'DPP';
+                      <% data.forEach(item => { %>
+                        <% if (item.type === 'DPP') { %>
+                          cards.innerHTML += `
+                          <div class="card effect3d">
+                            <img src="https://th.bing.com/th/id/OIP.PryQmk-ORcQP5yHdj2xSQQHaE8?rs=1&pid=ImgDetMain" alt="Placeholder Image">
+                            <h2 class="search"><%= item.title %></h2>
+                            <span class="datetime">
+                              <i class="fas fa-calendar-alt"></i>
+                              <span>Date: <%= item.date %></span>
+                              <i class="fas fa-clock"></i>
+                              <span>Time: <%= item.time %></span>
+                            </span>
+                            <a href="/pdfnp/<%= encodeURIComponent(item.id) %>" class="download-button-link">
+                              <button class="download-button">
+                               <i class="fas fa-eye"></i>
+                                View
+                              </button>
+                            </a>
+                          </div>`;
+                        <% } %>
+                      <% }); %>
+                    });
+                        
                    particlesJS("particle-canvas", {
                      particles: {
                        number: {
@@ -588,7 +650,7 @@
                      },
                      retina_detect: true,
                    });
-
+                 
                    let currentSubscription = null;
                    const messageModalOverlay = document.getElementById('messageModalOverlay');
                    const modalMessage = document.getElementById('modalMessage');
@@ -737,7 +799,7 @@
                     }
 
                     <% data.forEach(item => { %>
-                      if ('<%= item.title %>'.toLowerCase().includes(value)) {
+                      if ('<%= item.title %>'.toLowerCase().includes(value)&& '<%=item.type%>'== current) {
                         cardsContainer.innerHTML += `
                         <div class="card effect3d">
                           <img src="https://th.bing.com/th/id/OIP.PryQmk-ORcQP5yHdj2xSQQHaE8?rs=1&pid=ImgDetMain" alt="Placeholder Image">
@@ -771,6 +833,6 @@
                       cardsContainer.innerHTML = '<p style="color: red; text-align: center; width: 100%;">No matching courses found.</p>';
                     }
                   });
-                 </script>
+                    </script>
                </body>
                </html>

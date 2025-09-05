@@ -588,15 +588,16 @@
 <body>
     <div class="player-container" id="player-container">
 
-        <div style="position:absolute; display: flex; align-items: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); padding: 8px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); overflow: hidden;margin-top:30px;margin-left:20px;">
-          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%); pointer-events: none;"></div>
-          <h3 style="position: relative; color: white; margin: 0; font-size: 1.3em; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); font-weight: 600; letter-spacing: -0.5px;">LearnPulse</h3>
-        </div>
+     
 
 
         
         <video id="video"></video>
         <button class="download-btn" id="download-btn" onclick="showDownloadDialog()"><i class="fa-solid fa-download"></i></button>
+        <div style="position: fixed; top: 15px; left: 15px; z-index: 9999; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); padding: 10px 20px; border-radius: 15px; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4), inset 0 1px 0 rgba(255,255,255,0.2); backdrop-filter: blur(10px); overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12) 0%, transparent 60%); pointer-events: none;"></div>
+          <h3 style="position: relative; color: white; margin: 0; font-size: 1.2em; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); font-weight: 600; letter-spacing: -0.5px;">LearnPulse</h3>
+        </div>
         <div id="gesture-area" class="gesture-area">
             <div class="left-half"></div>
             <div class="right-half"></div>
