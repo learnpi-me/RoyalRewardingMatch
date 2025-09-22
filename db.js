@@ -283,7 +283,7 @@ app.get("/new/:batch/:subject", (req, res) =>
  const batch= req.params.batch
         const subject= req.params.subject;
 
-    let realdata = ogdata.filter(item => item.class === batch && item.subject === subject);   
+    let realdata = ogdata.filter(item => item.class == batch && item.subject == subject);   
         const title = dar.quotes.length;
         let random = Math.floor(Math.random() * title);
         let quote = dar.quotes[random].quote;
