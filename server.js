@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs').promises;
 const fetch = (...args) => import('node-fetch').then(module => module.default(...args));
-
+const Yn = require("crypto-js");
 let videos = [];
 let id = 0;
 
@@ -522,11 +522,18 @@ async function updateOtherSubject(url, classNum, subject, type) {
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:92.0) Gecko/20100101 Firefox/92.0',
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/91.0.864.59',
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Edge/91.0.864.59',
+     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0",
+
         ];
-        const randomUserAgent = userAgents[Math.floor(Math.random() * userAgents.length)];
+function generateXSignature() {     const SECRET_KEY = "my32bitkeyforhardxsignaturefuckh";      const timestamp = Math.floor(Date.now() / 1000).toString();      const hmacHash = Yn.HmacSHA256(timestamp, SECRET_KEY);      const base64Hash = Yn.enc.Base64.stringify(hmacHash);      const signatureInput = timestamp + base64Hash;      const xSignature = btoa(signatureInput);          return xSignature; }      
+        function getRandomUserAgent() {
+            return userAgents[Math.floor(Math.random() * userAgents.length)];
+        }
+       
         const response = await fetch(url, {
             headers: {
-                'User-Agent': randomUserAgent
+                'User-Agent': getRandomUserAgent(),
+                'X-Signature': generateXSignature()
             }
         });
         if (!response.ok) {
