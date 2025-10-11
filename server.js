@@ -35,6 +35,7 @@ const data = {
         Sanskrit: [
             "https://rolexcoderz.live/Sanskrit/"
         ],
+      
       /*  Hindi: [
             "https://www.rolexcoderz.xyz/Hindi",
             "https://rolexcoderz.live/Hindi.php",
@@ -317,8 +318,8 @@ const dataOther = [
 {"class":"9","subject":"Hindi","type":"notes","url":"https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=hinspnotes"},
 {"class":"9","subject":"Hindi","type":"video","url":"https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=hinsn"},
 {"class":"9","subject":"Hindi","type":"notes","url":"https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=hinsnnotes"},
-    {"class":"10","subject":"English","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engextranotes"},
-    {"class":"10","subject":"English","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engextra"},
+    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engextranotes"},
+    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engextra"},
     {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engblivenotes"},
     {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engblive"},
     {"class":"10","subject":"English","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engalivenotes"},
@@ -347,6 +348,21 @@ const dataOther = [
     {"class":"10","subject":"Hindi_grammer","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinbgmnotes"},
     {"class":"10","subject":"Hindi_grammer","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinbgm"}
 ]
+const mastersahab=[
+    {
+    "class": "10",
+    "subject": "Shemushi",
+    "type": "video",
+    "url": "https://theeduverse.xyz/api/scholarverse/MasterSahab?subject=shemushi&get=lectures"
+    },
+    {
+        class: "10",
+subject: "Shemushi",
+     type: "notes",
+url:"https://theeduverse.xyz/api/scholarverse/MasterSahab?subject=shemushi&get=notes"
+    }
+]
+
 const generateRandomTime = () => {
     const hour = String(Math.floor(Math.random() * 24)).padStart(2, '0');
     const minute = String(Math.floor(Math.random() * 60)).padStart(2, '0');
@@ -354,7 +370,7 @@ const generateRandomTime = () => {
 };
 
 const generateRandomDate = () => {
-    const start = new Date(2023, 0, 1);  // Set a reasonable start date
+    const start = new Date(2023, 0, 1);  
     const end = new Date();
     const diff = end.getTime() - start.getTime();
     const randomDays = Math.floor(Math.random() * (diff / (1000 * 3600 * 24)));

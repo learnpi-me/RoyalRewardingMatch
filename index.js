@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const { scrapeAll } = require('./server');
-const app = require('./db');
+const app =require('./db');
 app.post('/scrape', (req, res) =>
   {
     scrapeAll()

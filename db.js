@@ -52,6 +52,63 @@ app.get("/aarambh", (req, res) => {
 app.get("/ai", (req, res) =>{
     res.render("ai");
 });
+app.get("/demolive",(req,res)=>{
+ res.render("live")
+})
+
+async function getToken(){
+   const token = await fetch("https://rolexcoderz.in/api/get-token");
+    const data = await token.json();
+    return data;
+}
+async function getLiveClasses() {
+  const { timestamp, signature } = await getToken();
+
+  const response = await fetch("https://rolexcoderz.in/api/get-live-classes", {
+    method: "POST",
+    headers: {
+      "X-Signature": signature,
+      "X-Timestamp": timestamp,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ type: "live" }),
+  });
+
+  try {
+ const jsonResponse = await response.json(); 
+
+    const base64String = jsonResponse.data;
+
+    const decodedText = Buffer.from(base64String, "base64").toString('utf-8');
+    return JSON.parse(decodedText);
+
+  } catch (err) {
+    console.error("Failed to process nested Base64/JSON:");
+      const empty=[];
+    return empty;
+  }
+}
+
+
+app.get("/10live", async(req,res)=>{
+    const liveClasses = await getLiveClasses();
+    const liveclass = liveClasses.data;
+    if (liveclass){
+    const filteredClasses = liveclass.filter(item => item.batch == "AARAMBH BATCH 25-26");
+res.send(filteredClasses)}
+else{
+ res.json([])
+}
+})
+
+
+
+
+app.get("/live", async (req, res) =>{
+const liveClasses = await getLiveClasses();
+ res.send(liveClasses);
+console.log(liveClasses);})
+
 app.get("/11live", async (req, res) => {
      const response = await fetch("https://studyverse-nxt-live.vercel.app/api/schedule");
     const data = await response.json();
@@ -115,24 +172,7 @@ app.get("/9live", async (req, res) => {
         res.status(500).send("Error fetching live stream");
       }
 });
-app.get("/10live", async (req, res) => {
-  try {
-    const response = await fetch("https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=live");
-    const data = await response.json();
-const unixTimestamp = Math.floor(Date.now() / 1000);
-    if (data.status == true && data.data.length > 0 && unixTimestamp > data.data[0].start_date && unixTimestamp < data.data[0].end_date) {
-    const start = data.data[0].start_date;
-        const url = `${data.data[0].file_url}?start=${start}`;
-      res.render("newplayer", { url:url,
-                               title:"Live Class"});
-    } else {
-      res.render("nolive");
-    }
-  } catch (error) {
-    console.error("Error fetching live stream:", error);
-    res.status(500).send("Error fetching live stream");
-  }
-});
+
 
 let stats = JSON.parse(fs.readFileSync("stats.json"));
 let user = stats.user || 0;
@@ -381,7 +421,11 @@ app.post("/subscribe", (req, res) => {
     console.log(`New subscription added. Total subscriptions: ${subscriptions.length}`);
     res.status(201).json({ message: "Subscribed successfully!" });
 });
+const books = JSON.parse(fs.readFileSync("books.json"));
 
+app.get("/books", (req, res) => {
+    res.render("books", { books: books });
+});
 app.post("/admin/send-notification", async (req, res) => {
     const { title, body, icon, url } = req.body;
  
