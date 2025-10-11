@@ -9,8 +9,8 @@
             /* Vanta fix: ensures the body covers the entire viewport */
             background-color: black;
             margin: 0; 
+            padding: 0;
             min-height: 100vh; 
-        
             width: 100vw;
         }
 
@@ -18,6 +18,10 @@
         .header, .selector {
             position: relative; /* Necessary to use z-index */
             z-index: 10; /* Ensures content is layered above the Vanta canvas */
+        }
+        
+        .header {
+            padding-top: 20px;
         }
         
         h3 {
@@ -28,7 +32,8 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            margin-bottom: 0.5em;
+            margin: 0;
+            margin-bottom: 20px;
         }
         
         .selector {
