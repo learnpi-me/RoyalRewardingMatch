@@ -75,21 +75,41 @@
         }
 
     .cards{
-        display:flex;
-        margin-top:35px;
+        display: flex;
+        justify-content: center;
+        margin-top: 35px;
+        padding: 0 20px;
     }
-        .card{
-            display:flex;
-            flex-direction: vertical;
-        background: rgba(0,3,0,0.9);
-            width:100%;
-            display:flex;
-        }
-        .title{
-         font-size:15px;  
-            text-align:center;
-            
-        }
+    
+    .card{
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 15px;
+        padding: 25px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        position: relative;
+        z-index: 10;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+    
+    .title{
+        font-size: 18px;
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.4;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        letter-spacing: 0.5px;
+    }
     </style>
 </head>
 <body>
