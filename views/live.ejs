@@ -54,6 +54,8 @@
             background: #454545;
             display: flex;
             justify-content: center;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
             align-items: center;
             height: 30px;
             border-radius: 10px;
@@ -68,6 +70,25 @@
         .btn p {
             color: white;
             font-size: 18px;
+            user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
+            
+        }
+
+    .cards{
+        display:flex;
+        margin-top:35px;
+    }
+        .card{
+            display:flex;
+            flex-direction: vertical;
+        background: rgba(0,3,0,0.9);
+            width:100%;
+            display:flex;
+        }
+        .title{
+         font-size:15px;  
+            text-align:center;
+            
         }
     </style>
 </head>
@@ -86,29 +107,35 @@
             <p>Completed</p>
         </div>
     </div>
-    
+    <div class="cards">
+        <div class="card">
+            <h3 class="title">
+      Print Culture and mordern world          
+            </h3>
+            </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
     
     <script>
     VANTA.WAVES({
         el: "body",
-        mouseControls: true,
-        touchControls: true,
+        mouseControls: false,
+        touchControls: false,
         gyroControls: false,
         minHeight: 200.00,
         minWidth: 200.00,
         scale: 1.00,
         scaleMobile: 1.00,
         color: 0x000000,
-        shininess: 80.00,
+        shininess: 180.00,
         waveHeight: 25.00,
         waveSpeed: 0.6,
         zoom: 0.65,
         material: {
             options: {
                 fog: true,
-                wireframe: false
+                wireframe: true
             }
         },
         forceAnimate: true
