@@ -62,30 +62,27 @@ async function getToken(){
     return data;
 }
 async function getLiveClasses() {
-  const { timestamp, signature } = await getToken();
-
-  const response = await fetch("https://rolexcoderz.in/api/get-live-classes", {
-    method: "POST",
-    headers: {
-      "X-Signature": signature,
-      "X-Timestamp": timestamp,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ type: "completed" }),
-  });
-
   try {
- const jsonResponse = await response.json(); 
+    const { timestamp, signature } = await getToken();
 
+    const response = await fetch("https://rolexcoderz.in/api/get-live-classes", {
+      method: "POST",
+      headers: {
+        "X-Signature": signature,
+        "X-Timestamp": timestamp,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ type: "completed" }),
+    });
+
+    const jsonResponse = await response.json(); 
     const base64String = jsonResponse.data;
-
     const decodedText = Buffer.from(base64String, "base64").toString('utf-8');
     return JSON.parse(decodedText);
 
   } catch (err) {
-    console.error("Failed to process nested Base64/JSON:");
-      const empty=[];
-    return empty;
+    console.error("Failed to process nested Base64/JSON:", err);
+    return [];
   }
 }
 
