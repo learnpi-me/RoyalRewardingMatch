@@ -71,7 +71,7 @@ async function getLiveClasses() {
       "X-Timestamp": timestamp,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ type: "live" }),
+    body: JSON.stringify({ type: "completed" }),
   });
 
   try {
@@ -106,8 +106,12 @@ else{
 
 app.get("/live", async (req, res) =>{
 const liveClasses = await getLiveClasses();
- res.send(liveClasses);
-console.log(liveClasses);})
+    if(liveClasses){
+ res.send(liveClasses);}
+else{
+    res.json([]);
+}
+})
 
 app.get("/11live", async (req, res) => {
      const response = await fetch("https://studyverse-nxt-live.vercel.app/api/schedule");
