@@ -101,7 +101,7 @@
         .course-card {
             background: linear-gradient(135deg, #1f2937, #111827);
             border-radius: 12px;
-            padding: 20px;
+            padding: 0;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -125,28 +125,30 @@
             width: 100%;
             height: 160px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 0;
+            border: none;
         }
 
         .course-title {
             font-size: 1.5rem;
             font-weight: 600;
             color: #f472b6;
-            margin-bottom: 20px;
+            margin: 15px 20px 20px 20px;
             line-height: 1.3;
         }
 
         .course-link {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 15px 40px;
             background: linear-gradient(to right, #db2777, #dc2626);
             color: #ffffff;
             font-weight: 600;
+            font-size: 1.1rem;
             border-radius: 8px;
             text-decoration: none;
             transition: background 0.3s ease, transform 0.3s ease;
+            margin-bottom: 20px;
         }
 
         .course-link:hover {
