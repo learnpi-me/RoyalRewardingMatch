@@ -532,6 +532,8 @@ const updateMessage=document.getElementById("updatingMessage");
 
         async function updateCourses() {
             try {
+                updateMessage.style.display = 'block';
+                
                 const response = await fetch('/scrape', {
                     method: 'POST',
                     headers: {
@@ -539,10 +541,8 @@ const updateMessage=document.getElementById("updatingMessage");
                     }
                 });
 
-                updateMessage.style.display = 'block';
-                setTimeout(() => {
-                 updateMessage.style.display = 'block';
-                }, 100);
+                updateMessage.style.display = 'none';
+                
                 const successMessage = document.getElementById('successMessage');
                 if (response.status === 200) {
                     successMessage.classList.add('show');
@@ -554,6 +554,7 @@ const updateMessage=document.getElementById("updatingMessage");
                     throw new Error('Failed to update courses');
                 }
             } catch (error) {
+                updateMessage.style.display = 'none';
                 console.error('Error updating courses:', error);
                 alert('Failed to update courses. Please try again.');
             }
