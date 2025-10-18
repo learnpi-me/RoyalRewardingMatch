@@ -136,6 +136,7 @@
                      font-family: 'Inter', sans-serif;
                      min-height: 100vh;
                      margin: 0;
+                     padding:0;
                    }
 
                    #particle-canvas {
@@ -152,7 +153,7 @@
                      display: flex;
                      flex-wrap: wrap;
                      justify-content: center;
-                     gap: 20px;
+                     gap: 10px;
                      position: relative;
                      z-index: 1;
                    }
@@ -162,8 +163,9 @@
                      backdrop-filter: blur(10px);
                      border: 1px solid #3e3e3e;
                      border-radius: 10px;
-                     padding: 15px;
-                     width: 320px;
+                     padding: 1px;
+                
+                  width: 335px;
                      transition: transform 0.2s;
                      display: flex;
                      flex-direction: column;
@@ -201,8 +203,8 @@
                      opacity: 0.8;
                      display: flex;
                      align-items: center;
-                     justify-content: center;
-                     gap: 8px;
+                     justify-content: space-around;
+                     gap: 17px;
                      margin-bottom: 15px;
                      flex-wrap: wrap;
                    }
@@ -217,6 +219,8 @@
                      display: flex;
                      justify-content: center;
                      text-decoration: none;
+                    -webkit-tap-highlight-color:transparent;
+             outline:none;   
                    }
 
                    .play-button, .download-button {
@@ -247,10 +251,11 @@
                      gap: 15px;
                      cursor: pointer;
                      transition: transform 0.2s ease, box-shadow 0.3s;
-                   }
+                     }
+                   
 
                    .play-button:hover, .download-button:hover {
-                     transform: translateY(-3px) scale(1.02);
+                     transform: translateY(-3px) scale(1.08);
                      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
                    }
 
@@ -425,7 +430,7 @@
                    <% data.forEach(item => { %>
                      <% if (item.type === 'video') { %>
                        <div class="card effect3d">
-                         <img src="https://th.bing.com/th/id/OIP.PryQmk-ORcQP5yHdj2xSQQHaE8?rs=1&pid=ImgDetMain" alt="Placeholder Image">
+                         
                          <h2 class="search"><%= item.title %></h2>
                          <span class="datetime">
                            <i class="fas fa-calendar-alt"></i>
@@ -455,10 +460,10 @@
                    </div>
                  </div>
                      <div class="ai">
-                       <img src="https://cdn-images-1.medium.com/max/1200/1*iWyBqHSL-NgDg3nIQwVHnw.png" alt="AI Assistant" style="width: 70px; height: 70px; border-radius: 100%;">
+                       <img src="https://media.licdn.com/dms/image/v2/D4E12AQFlqc1n_XsnHg/article-cover_image-shrink_720_1280/B4EZk09j5iIsAI-/0/1757530177836?e=2147483647&v=beta&t=nQmfRRhDrwqsR5jwj6YYUws7wV6rIcOw0vRBjVU1VIo" alt="AI Assistant" style="width: 70px; height: 70px; border-radius: 100%;">
                      </div>
                      <div class="content">
-                       <iframe src="https://learn-pulse-nxt.onrender.com/ai" title="AI Assistant"></iframe>
+                       <iframe src="https://c4ec19e1-7173-4411-a135-97166f82e719-00-2a2sliw67l4x4.picard.replit.dev/ai" title="AI Assistant"></iframe>
                      </div>
                  <script>
                    const lecture = document.querySelector('.lecture');
@@ -473,7 +478,7 @@
                        <% if (item.type === 'video') { %>
                          cards.innerHTML += `
                          <div class="card effect3d">
-                           <img src="https://th.bing.com/th/id/OIP.PryQmk-ORcQP5yHdj2xSQQHaE8?rs=1&pid=ImgDetMain" alt="Placeholder Image">
+                           
                            <h2 class = "search"><%= item.title %></h2>
                            <span class="datetime">
                              <i class="fas fa-calendar-alt"></i>
@@ -499,7 +504,7 @@
                        <% if (item.type === 'notes') { %>
                          cards.innerHTML += `
                          <div class="card effect3d">
-                           <img src="https://th.bing.com/th/id/OIP.PryQmk-ORcQP5yHdj2xSQQHaE8?rs=1&pid=ImgDetMain" alt="Placeholder Image">
+       
                            <h2 class="search"><%= item.title %></h2>
                            <span class="datetime">
                              <i class="fas fa-calendar-alt"></i>
@@ -525,7 +530,7 @@
                         <% if (item.type === 'DPP') { %>
                           cards.innerHTML += `
                           <div class="card effect3d">
-                            <img src="https://th.bing.com/th/id/OIP.PryQmk-ORcQP5yHdj2xSQQHaE8?rs=1&pid=ImgDetMain" alt="Placeholder Image">
+ 
                             <h2 class="search"><%= item.title %></h2>
                             <span class="datetime">
                               <i class="fas fa-calendar-alt"></i>

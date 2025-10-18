@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const webpush = require("web-push");
-
+const Yn = require("crypto-js");
 const app = express();
 const fetch = (...args) => import('node-fetch').then(module => module.default(...args));
 
@@ -55,6 +55,29 @@ app.get("/ai", (req, res) =>{
 app.get("/demolive",(req,res)=>{
  res.render("live")
 })
+function generateXSignature() {     const SECRET_KEY = "my32bitkeyforhardxsignaturefuckh";      const timestamp = Math.floor(Date.now() / 1000).toString();      const hmacHash = Yn.HmacSHA256(timestamp, SECRET_KEY);      const base64Hash = Yn.enc.Base64.stringify(hmacHash);      const signatureInput = timestamp + base64Hash;      const xSignature = btoa(signatureInput);          return xSignature; }
+
+
+async function livedata(url,type,Class) {
+    const data=fetch(`${url}?type=${type}`,{
+     headers:{  
+    "User-Agent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+     "X-Signature":generateXSignature(),
+     "refrer":"https://edu-vibe-nt.vercel.app/10/live"
+     }
+    });
+    const json= await data.json();
+    let recent=[];
+    let subject;
+    json.data.forEach(element =>{
+        if(element.l1_id==8614){
+            subject="SSt"
+        }
+        else if(element.l1_id==8615){   subject="science"
+        }
+    })
+}
+
 
 async function getToken(){
    const token = await fetch("https://rolexcoderz.in/api/get-token");
@@ -64,7 +87,8 @@ async function getToken(){
 async function getLiveClasses() {
   try {
     const { timestamp, signature } = await getToken();
-
+    console.log(timestamp);
+    console.log(signature);
     const response = await fetch("https://rolexcoderz.in/api/get-live-classes", {
       method: "POST",
       headers: {
@@ -72,7 +96,7 @@ async function getLiveClasses() {
         "X-Timestamp": timestamp,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ type: "completed" }),
+      body: {"type":completed}
     });
 
     const jsonResponse = await response.json(); 

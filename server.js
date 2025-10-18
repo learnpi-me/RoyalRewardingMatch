@@ -18,6 +18,12 @@ const data = {
         SSt: [
             "https://rolexcoderz.live/SST.php"
         ],
+        Shemushi:[
+            "https://rolexcoderz.live/ProBatch/"
+        ],
+        Manika:[
+            "https://rolexcoderz.live/Manika/"
+        ],
      /*   EnglishB: [
             "https://www.rolexcoderz.xyz/Eng",
             "https://rolexcoderz.live/English/"
@@ -348,20 +354,31 @@ const dataOther = [
     {"class":"10","subject":"Hindi_grammer","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinbgmnotes"},
     {"class":"10","subject":"Hindi_grammer","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinbgm"}
 ]
-const mastersahab=[
+/*const mastersahab=[
     {
-    "class": "10",
+    "Class": "10",
     "subject": "Shemushi",
     "type": "video",
     "url": "https://theeduverse.xyz/api/scholarverse/MasterSahab?subject=shemushi&get=lectures"
     },
     {
-        class: "10",
-subject: "Shemushi",
-     type: "notes",
-url:"https://theeduverse.xyz/api/scholarverse/MasterSahab?subject=shemushi&get=notes"
+        "Class": "10",
+"subject": "Shemushi",
+     "type": "notes",
+"url":"https://theeduverse.xyz/api/scholarverse/MasterSahab?subject=shemushi&get=notes"
+    },{
+       "Class":10,
+        "subject":"Manika",
+        "type":"video",
+        "url":"https://theeduverse.xyz/api/scholarverse/MasterSahab/?subject=manika&get=lectures"
+    },
+    {
+           "Class":10,
+            "subject":"Manika",
+            "type":"notes",
+            "url":"https://theeduverse.xyz/api/scholarverse/MasterSahab/?subject=manika&get=notes"
     }
-]
+]*/
 
 const generateRandomTime = () => {
     const hour = String(Math.floor(Math.random() * 24)).padStart(2, '0');
@@ -414,7 +431,33 @@ const generateRandomDate = () => {
         return null;
     }
 }*/
-
+async function fetchMaster(url,subject,classes,type) {
+  try{
+      const response = await fetch(url);
+  const data= await response.json();    
+      data.forEach(element=>{
+          let title = element.title;
+       let url = element.link;
+        if (title&&url) {
+            videos.push(
+                {
+                title:title,
+                link:url,
+                class:classes,
+                subject:subject,
+                type:type,           time:generateRandomTime(),
+    date:generateRandomDate(),
+                    id:id++,
+                }
+            )
+        }  
+      })
+  }  
+    catch(error){
+        // **Correction made here**
+        console.error("failed to fetch:", error) 
+    }
+}
 async function scrapeVideosFromUrl(url, subject, classnum) {
     try {
         const response = await axios.get(url);
@@ -604,9 +647,12 @@ async function scrapeAll() {
     // Scrape from the second set of URLs
     console.log('Starting scrape from viewer-ten-psi.vercel.app and automation9thphp.vercel.app...');
     for (const item of dataOther) {                      await updateOtherSubject(item.url, item.class, item.subject, item.type);                                  }                 
-  /*  console.log('Starting scrape from study data...');
-    for (const element of studyData.data) {
+  console.log('Starting scrape from study data...');
+   /* for (const element of studyData.data) {
       await fetchStudyData(element.class, element.subject, element.type, element.url);
+    }
+    for (const element of mastersahab){
+        await fetchMaster(element.url,element.subject,element.Class,element.type)
     }*/
     try {
         await fs.writeFile('videos.json', JSON.stringify(videos, null, 2));
