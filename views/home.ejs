@@ -108,8 +108,8 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
-            flex: 1 1 300px;
-            width: 99%;
+            flex: 1 1 280px;
+            width: 100%;
             max-width: 400px;
             display: flex;
             flex-direction: column;
@@ -176,6 +176,7 @@
 
             .search-section {
                 flex-direction: column;
+                padding: 0 10px;
             }
 
             .search-button, .update-button {
@@ -184,7 +185,18 @@
 
             .course-card {
                 flex: 1 1 100%;
-                max-width: 100%;
+                max-width: calc(100vw - 40px);
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .courses-grid {
+                padding: 0 10px;
+                gap: 15px;
+            }
+
+            .container {
+                padding: 10px;
             }
         }
 
