@@ -52,190 +52,21 @@ app.get("/aarambh", (req, res) => {
 app.get("/ai", (req, res) =>{
     res.render("ai");
 });
-app.get("/demolive",(req,res)=>{
- res.render("live")
-});
+
 app.get("/12",(req,res)=>{
     res.render("12")
 });
-function generateXSignature() {     const SECRET_KEY = "my32bitkeyforhardxsignaturefuckh";      const timestamp = Math.floor(Date.now() / 1000).toString();      const hmacHash = Yn.HmacSHA256(timestamp, SECRET_KEY);      const base64Hash = Yn.enc.Base64.stringify(hmacHash);      const signatureInput = timestamp + base64Hash;      const xSignature = btoa(signatureInput);          return xSignature; }
-
-
-async function livedata(url,type,Class) {
-    try {
-        const datas = await fetch(`${url}&view=${type}`, {
-            headers: {
-                "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
-                "X-Signature": generateXSignature(),
-            }
-        });
-        
-        if (!datas.ok) {
-            throw new Error(`HTTP error! status: ${datas.status}`);
-        }
-        
-        const json = await datas.json();
-        console.log('API Response:', json);
-        
-        let recent = [];
-        let subject;
-        
-        // Check if json.data exists and is an array
-        if (json.data && Array.isArray(json.data)) {
-            json.data.forEach(element => {
-                if(element.l1_id == 8614){
-                    subject = "SSt"
-                }
-                else if(element.l1_id == 8615){   
-                    subject = "Science"
-                }
-                else if(element.l1_id == 8616){
-                    subject = "Maths"
-                }
-                else{
-                    subject = "Unknown"
-                }
-                let url = element.file_url;
-                let title = element.title;
-                let batch = element.course_name;
-                let time = element.start_date;
-                recent.push({
-                    url: url,
-                    title: title,
-                    batch: batch,
-                    time: time,
-                    subject: subject,
-                    class: Class
-                })
-            })
-        }
-        
-        return recent; // Return the data
-    } catch (error) {
-        console.error('Error in livedata function:', error);
-        return []; // Return empty array on error
-    }
-}
-
-
-async function getToken(){
-   const token = await fetch("https://rolexcoderz.in/api/get-token");
-    const data = await token.json();
-    return data;
-}
-async function getLiveClasses() {
-  try {
-    const { timestamp, signature } = await getToken();
-    console.log(timestamp);
-    console.log(signature);
-    const response = await fetch("https://rolexcoderz.in/api/get-live-classes", {
-      method: "POST",
-      headers: {
-        "X-Signature": signature,
-        "X-Timestamp": timestamp,
-        "Content-Type": "application/json",
-      },
-      body: {"type":"completed"}
-    });
-
-    const jsonResponse = await response.json(); 
-    const base64String = jsonResponse.data;
-    const decodedText = Buffer.from(base64String, "base64").toString('utf-8');
-    return JSON.parse(decodedText);
-
-  } catch (err) {
-    console.error("Failed to process nested Base64/JSON:", err);
-    return [];
-  }
-}
-
-
-app.get("/10live", async(req,res)=>{
-    const liveClasses = await getLiveClasses();
-    const liveclass = liveClasses.data;
-    if (liveclass){
-    const filteredClasses = liveclass.filter(item => item.batch == "AARAMBH BATCH 25-26");
-res.send(filteredClasses)}
-else{
- res.json(["kuch to gardab h re baba"])
-}
-})
 
 
 
 
-app.get("/live", async (req, res) =>{
-const liveClasses = await livedata("https://viewer-ten-psi.vercel.app/view.php?byobs=1","completed",10);
-    if(liveClasses){
- res.send(liveClasses);}
-else{
-    res.json([]);
-}
-})
 
-app.get("/11live", async (req, res) => {
-     const response = await fetch("https://studyverse-nxt-live.vercel.app/api/schedule");
-    const data = await response.json();
-    const nowUTC = new Date();
-    const currentTime = Math.floor((nowUTC.getTime() + 5.5 * 60 * 60 * 1000) / 1000);
 
-   const start1 = Math.floor(new Date(data["1"].class1Times.startTime).getTime()/1000);
-const end1 =  Math.floor(new Date(data["1"].class1Times.endTime).getTime()/1000);
- const start2 = Math.floor(new Date(data["1"].class2Times.startTime).getTime()/1000);
-    const end2 = Math.floor(new Date(data["1"].class2Times.endTime).getTime()/1000);
-    let url;
-    if(currentTime >= start1 && currentTime <= end1 && data["1"].class1Visible == true){
-    url=data["1"].class1LiveStreamUrl;
-    res.render("newplayer", { url:`${url}`,
-                             title:"Live Class"});  
-    } else if(currentTime>=start2 && currentTime <= end2 && data["1"].class2Visible ==true){
-        url=data["1"].class2LiveStreamUrl;
-    res.render("newplayer", { url:`${url}`,
-                             title:"Live Class"});  
-    }
-        
-        else {    res.render('nolive')}});
-app.get("/11ecolive", async (req, res) => {
-     const response = await fetch("https://studyverse-nxt-live.vercel.app/api/schedule");
-    const data = await response.json();
-    const nowUTC = new Date();
-    const currentTime = Math.floor((nowUTC.getTime() + 5.5 * 60 * 60 * 1000) / 1000);
 
-   const start1 = Math.floor(new Date(data["2"].class1Times.startTime).getTime()/1000);
-const end1 =  Math.floor(new Date(data["2"].class1Times.endTime).getTime()/1000);
- const start2 = Math.floor(new Date(data["2"].class2Times.startTime).getTime()/1000);
-    const end2 = Math.floor(new Date(data["2"].class2Times.endTime).getTime()/1000);
-    let url;
-    if(currentTime >= start1 && currentTime <= end1){
-    url=data["2"].class1LiveStreamUrl;
-    res.render("newplayer", { url:`${url}`,
-                             title:"Live Class"});  
-    }
-    else if(currentTime>=start2 && currentTime <= end2){
-        url=data["2"].class2LiveStreamUrl;
-    res.render("newplayer", { url:`${url}`,
-                             title:"Live Class"});  
-    } else {    res.render('nolive')}  
-});
-app.get("/9live", async (req, res) => {
-    try {
-        const response = await fetch("https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=live");
-        const data = await response.json();
 
-        if (data.status == true && data.data.length > 0) {
 
-              const start = data.data[0].start_date;
-            const url = `${data.data[0].file_url}?start=${start}`;
-          res.render("newplayer", { url:url,
-                                   title:"Live Class"});
-        } else {
-          res.render("nolive");
-        }
-      } catch (error) {
-        console.error("Error fetching live stream:", error);
-        res.status(500).send("Error fetching live stream");
-      }
-});
+
+
 
 
 let stats = JSON.parse(fs.readFileSync("stats.json"));
