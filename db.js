@@ -62,36 +62,59 @@ function generateXSignature() {     const SECRET_KEY = "my32bitkeyforhardxsignat
 
 
 async function livedata(url,type,Class) {
-    const datas = await fetch(`${url}&view=${type}`);
-    console.log(datas);
-    const json= await datas.json();
-    let recent=[];
-    let subject;
-    json.data.forEach(element =>{
-        if(element.l1_id==8614){
-            subject="SSt"
+    try {
+        const datas = await fetch(`${url}&view=${type}`, {
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+                "X-Signature": generateXSignature(),
+            }
+        });
+        
+        if (!datas.ok) {
+            throw new Error(`HTTP error! status: ${datas.status}`);
         }
-        else if(element.l1_id==8615){   subject="Science"
+        
+        const json = await datas.json();
+        console.log('API Response:', json);
+        
+        let recent = [];
+        let subject;
+        
+        // Check if json.data exists and is an array
+        if (json.data && Array.isArray(json.data)) {
+            json.data.forEach(element => {
+                if(element.l1_id == 8614){
+                    subject = "SSt"
+                }
+                else if(element.l1_id == 8615){   
+                    subject = "Science"
+                }
+                else if(element.l1_id == 8616){
+                    subject = "Maths"
+                }
+                else{
+                    subject = "Unknown"
+                }
+                let url = element.file_url;
+                let title = element.title;
+                let batch = element.course_name;
+                let time = element.start_date;
+                recent.push({
+                    url: url,
+                    title: title,
+                    batch: batch,
+                    time: time,
+                    subject: subject,
+                    class: Class
+                })
+            })
         }
-        else if(element.l1_id==8616){
-            subject="Maths"
-        }
-        else{
-            subject="Unknown"
-        }
-        let url = element.file_url;
-        let title = element.title;
-        let batch = element.course_name;
-        let time = element.start_date;
-        recent.push({
-            url:url,
-            title:title,
-            batch:batch,
-            time:time,
-            subject:subject,
-            class:Class
-        })
-    })
+        
+        return recent; // Return the data
+    } catch (error) {
+        console.error('Error in livedata function:', error);
+        return []; // Return empty array on error
+    }
 }
 
 
