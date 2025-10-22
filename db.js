@@ -62,13 +62,7 @@ function generateXSignature() {     const SECRET_KEY = "my32bitkeyforhardxsignat
 
 
 async function livedata(url,type,Class) {
-    const datas = await fetch(`${url}&view=${type}`,{
-     headers:{  
-    "User-Agent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
-     "X-Signature":generateXSignature(),
-     "refrer":"https://edu-vibe-nt.vercel.app/10/live"
-     }
-    });
+    const datas = await fetch(`${url}&view=${type}`);
     console.log(datas);
     const json= await datas.json();
     let recent=[];
