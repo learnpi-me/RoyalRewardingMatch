@@ -137,6 +137,17 @@ const data = {
         Geography: [
             "https://rolexcoderz.live/Geo.php"
         ],
+    },                               12:{
+     Maths:[
+         "https://rolexcoderz.live/12thMaths/"
+     ],
+       Physcics:[
+    "https://rolexcoderz.live/12thPhysics/"
+       ],                           Chemistry:["https://rolexcoderz.live/12thChemistry/"
+       ],
+        Biology:[
+    "https://rolexcoderz.live/12thBiology/"
+        ],
     },
 };
 
@@ -324,35 +335,35 @@ const dataOther = [
 {"class":"9","subject":"Hindi","type":"notes","url":"https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=hinspnotes"},
 {"class":"9","subject":"Hindi","type":"video","url":"https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=hinsn"},
 {"class":"9","subject":"Hindi","type":"notes","url":"https://automation9thphp.vercel.app/api/api.php?token=my_secret_key_123&view=hinsnnotes"},
-    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engextranotes"},
-    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engextra"},
-    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engblivenotes"},
-    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engblive"},
-    {"class":"10","subject":"English","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engalivenotes"},
-    {"class":"10","subject":"English","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engalive"},
-    {"class":"10","subject":"English","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=englrnotes"},
-    {"class":"10","subject":"English","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=englr"},
-    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engffnotes"},
-    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engff"},
-    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engfootnotes"},
-    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engfoot"},
-    {"class":"10","subject":"English_grammer","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=enggmnotes"},
-       {"class":"10","subject":"English_grammer","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=enggm"},
-     {"class":"10","subject":"Hindi_grammer","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinbgm"},
-    {"class":"10","subject":"readingandwriting","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engrcnotes"},
-    {"class":"10","subject":"readingandwriting","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engrc"},
-    {"class":"10","subject":"readingandwriting","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engwsnotes"},
-    {"class":"10","subject":"readingandwriting","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=engws"},
-    {"class":"10","subject":"Hindi","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinalivenotes"},
-    {"class":"10","subject":"Hindi","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinalive"},
-    {"class":"10","subject":"Hindi","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinkrnotes"},
-    {"class":"10","subject":"Hindi","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinkr"},
-    {"class":"10","subject":"Hindi","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinksnotes"},
-    {"class":"10","subject":"Hindi","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinks"},
-    {"class":"10","subject":"HindiB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinsnnotes"},
-    {"class":"10","subject":"HindiB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinsn"},
-    {"class":"10","subject":"Hindi_grammer","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinbgmnotes"},
-    {"class":"10","subject":"Hindi_grammer","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?token=my_secret_key_123&view=hinbgm"}
+    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engextranotes"},
+    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engextra"},
+    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engblivenotes"},
+    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engblive"},
+    {"class":"10","subject":"English","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engalivenotes"},
+    {"class":"10","subject":"English","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engalive"},
+    {"class":"10","subject":"English","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=englrnotes"},
+    {"class":"10","subject":"English","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=englr"},
+    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engffnotes"},
+    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engff"},
+    {"class":"10","subject":"EnglishB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engfootnotes"},
+    {"class":"10","subject":"EnglishB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engfoot"},
+    {"class":"10","subject":"English_grammer","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=enggmnotes"},
+       {"class":"10","subject":"English_grammer","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=enggm"},
+     {"class":"10","subject":"Hindi_grammer","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinbgm"},
+    {"class":"10","subject":"readingandwriting","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engrcnotes"},
+    {"class":"10","subject":"readingandwriting","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engrc"},
+    {"class":"10","subject":"readingandwriting","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engwsnotes"},
+    {"class":"10","subject":"readingandwriting","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=engws"},
+    {"class":"10","subject":"Hindi","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinalivenotes"},
+    {"class":"10","subject":"Hindi","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinalive"},
+    {"class":"10","subject":"Hindi","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinkrnotes"},
+    {"class":"10","subject":"Hindi","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinkr"},
+    {"class":"10","subject":"Hindi","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinksnotes"},
+    {"class":"10","subject":"Hindi","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinks"},
+    {"class":"10","subject":"HindiB","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinsnnotes"},
+    {"class":"10","subject":"HindiB","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinsn"},
+    {"class":"10","subject":"Hindi_grammer","type":"notes","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinbgmnotes"},
+    {"class":"10","subject":"Hindi_grammer","type":"video","url":"https://viewer-ten-psi.vercel.app/view.php?byobs=1&view=hinbgm"}
 ]
 /*const mastersahab=[
     {

@@ -54,27 +54,49 @@ app.get("/ai", (req, res) =>{
 });
 app.get("/demolive",(req,res)=>{
  res.render("live")
-})
+});
+app.get("/12",(req,res)=>{
+    res.render("12")
+});
 function generateXSignature() {     const SECRET_KEY = "my32bitkeyforhardxsignaturefuckh";      const timestamp = Math.floor(Date.now() / 1000).toString();      const hmacHash = Yn.HmacSHA256(timestamp, SECRET_KEY);      const base64Hash = Yn.enc.Base64.stringify(hmacHash);      const signatureInput = timestamp + base64Hash;      const xSignature = btoa(signatureInput);          return xSignature; }
 
 
 async function livedata(url,type,Class) {
-    const data=fetch(`${url}?type=${type}`,{
+    const datas =fetch(`${url}&view=${type}`,{
      headers:{  
     "User-Agent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
      "X-Signature":generateXSignature(),
      "refrer":"https://edu-vibe-nt.vercel.app/10/live"
      }
     });
-    const json= await data.json();
+    console.log(datas);
+    const json= await datas.json();
     let recent=[];
     let subject;
     json.data.forEach(element =>{
         if(element.l1_id==8614){
             subject="SSt"
         }
-        else if(element.l1_id==8615){   subject="science"
+        else if(element.l1_id==8615){   subject="Science"
         }
+        else if(element.l1_id==8616){
+            subject="Maths"
+        }
+        else{
+            subject="Unknown"
+        }
+        let url = element.file_url;
+        let title = element.title;
+        let batch = element.course_name;
+        let time = element.start_date;
+        recent.push({
+            url:url,
+            title:title,
+            batch:batch,
+            time:time,
+            subject:subject,
+            class:Class
+        })
     })
 }
 
@@ -96,7 +118,7 @@ async function getLiveClasses() {
         "X-Timestamp": timestamp,
         "Content-Type": "application/json",
       },
-      body: {"type":completed}
+      body: {"type":"completed"}
     });
 
     const jsonResponse = await response.json(); 
@@ -118,7 +140,7 @@ app.get("/10live", async(req,res)=>{
     const filteredClasses = liveclass.filter(item => item.batch == "AARAMBH BATCH 25-26");
 res.send(filteredClasses)}
 else{
- res.json([])
+ res.json(["kuch to gardab h re baba"])
 }
 })
 
@@ -126,7 +148,7 @@ else{
 
 
 app.get("/live", async (req, res) =>{
-const liveClasses = await getLiveClasses();
+const liveClasses = await livedata("https://viewer-ten-psi.vercel.app/view.php?byobs=1","completed",10);
     if(liveClasses){
  res.send(liveClasses);}
 else{
