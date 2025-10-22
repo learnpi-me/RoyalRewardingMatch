@@ -62,7 +62,7 @@ function generateXSignature() {     const SECRET_KEY = "my32bitkeyforhardxsignat
 
 
 async function livedata(url,type,Class) {
-    const datas =fetch(`${url}&view=${type}`,{
+    const datas = await fetch(`${url}&view=${type}`,{
      headers:{  
     "User-Agent":"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
      "X-Signature":generateXSignature(),
