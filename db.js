@@ -57,7 +57,9 @@ app.get("/12",(req,res)=>{
     res.render("12")
 });
 
-
+app.get("/books",(req,res)=>{
+    res.render("books");
+})
 
 
 
