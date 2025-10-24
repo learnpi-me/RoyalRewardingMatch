@@ -1,15 +1,16 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VANTA Background</title>
+    <title>Books - LearnPulse</title>
     <style>
         body {
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            background: black;
+            background: #000;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -21,25 +22,123 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 1;
         }
 
         .header {
             width: 100%;
             display: flex;
-            justify-content: space-between;
-            background: #1F1F1F;
-            border: solid 1px white;
+            justify-content: center;
+            background: rgba(31, 31, 31, 0.9);
+            border-bottom: solid 1px white;
             padding: 12px;
             position: relative;
             z-index: 10;
         }
 
+        .logo {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            padding: 8px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            overflow: hidden;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .logo h3 {
+            position: relative;
+            color: white;
+            margin: 0;
+            font-size: 1.3em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
         .content {
             position: relative;
             z-index: 5;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .book-title {
+            color: #fff;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .book-author {
+            color: #ccc;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .book-description {
+            color: #ddd;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .book-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .book-link:hover {
+            opacity: 0.8;
+        }
+
+        .page-title {
             text-align: center;
+            color: white;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
     </style>
 </head>
@@ -47,14 +146,37 @@
     <div id="vanta-bg"></div>
 
     <div class="header">
-        <div style="position: relative; display: flex; align-items: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); padding: 8px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%); pointer-events: none;"></div>
-            <h3 style="position: relative; color: white; margin: 0; font-size: 1.3em; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); font-weight: 600; letter-spacing: -0.5px;">LearnPulse</h3>
+        <div class="logo">
+            <h3>LearnPulse</h3>
         </div>   
     </div>
 
     <div class="content">
-        <h1 style="color: white;">VANTA Background Effect</h1>
+        <h1 class="page-title">Books Collection</h1>
+        
+        <% if (books && books.length > 0) { %>
+            <div class="books-grid">
+                <% books.forEach(book => { %>
+                    <div class="book-card">
+                        <h2 class="book-title"><%= book.title %></h2>
+                        <% if (book.author) { %>
+                            <p class="book-author">by <%= book.author %></p>
+                        <% } %>
+                        <% if (book.description) { %>
+                            <p class="book-description"><%= book.description %></p>
+                        <% } %>
+                        <% if (book.link || book.url) { %>
+                            <a href="<%= book.link || book.url %>" class="book-link" target="_blank">Read Book</a>
+                        <% } %>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div style="text-align: center; color: white; margin-top: 50px;">
+                <h2>No books available at the moment</h2>
+                <p>Check back later for new additions to our collection!</p>
+            </div>
+        <% } %>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
@@ -71,9 +193,14 @@
                     minWidth: 200.00,
                     scale: 1.00,
                     scaleMobile: 1.00,
-                    color: 0x8e8e8d,
-                    backgroundColor: 0x0
+                    color: 0x667eea,
+                    backgroundColor: 0x0,
+                    points: 10.00,
+                    maxDistance: 20.00,
+                    spacing: 15.00
                 });
+            } else {
+                console.log('VANTA or p5.js not loaded properly');
             }
         });
     </script>
