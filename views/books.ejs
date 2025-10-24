@@ -1,188 +1,51 @@
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-            <link
-                rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-            />
-            <title>Books</title>
-            <style>
-                * {
-                    box-sizing: border-box;
-                }
-
-                html, body {
-                    margin: 0;
-                    padding: 0; 
-                    height: 100vh; 
-                    width: 100vw;
-                    overflow-x: hidden;
-                }
-
-                body {
-                    font-family: sans-serif;
-                    background: black;
-                    color: white; 
-                    width: 100%;
-                    height: 100vh;
-                    min-height: 100vh;
-                    display: flex;
-                    flex-direction: column;
-                }
-               .header {
-                   width: 100%;
-                   height: 60px;
-                   display: flex;
-                   justify-content: space-between;
-                   align-items: center;
-                   border-bottom: 1px solid #6B6B6B;
-                   background: #1F1F1F;
-               }
-
-                .header-item-style {
-                    position: relative; 
-                    display: flex; 
-                    align-items: center; 
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); 
-                    padding: 8px 20px; 
-                    border-radius: 12px; 
-                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); 
-                    overflow: hidden;
-                    margin: 10px;
-                    height: 80%;
-                }
-
-                .header-item-style .h3-style {
-                    position: relative; 
-                    color: white; 
-                    margin: 0; 
-                    font-size: 1.3em; 
-                    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); 
-                    font-weight: 600; 
-                    letter-spacing: -0.5px;
-                }
-
-                .header-item-style .gradient-overlay {
-                    position: absolute; 
-                    top: 0; 
-                    left: 0; 
-                    right: 0; 
-                    bottom: 0; 
-                    background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%); 
-                    pointer-events: none;
-                }
-
-               .my-element {
-                    display: inline-block;
-                    margin: 0 20px;
-                    scale: 1.4;
-                    --animate-duration: 2s;
-               }
-
-               .books {
-                   display: flex;
-                   flex-wrap: wrap;
-                   justify-content: center;
-                   gap: 20px;
-                   padding: 20px;
-                   flex: 1;
-                   min-height: calc(100vh - 60px);
-                   box-sizing: border-box;
-               }
-
-               .book {
-                   background: #2A2A2A;
-                   padding: 20px;
-                   border-radius: 8px;
-                   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-                   width: 250px;
-                   text-align: center;
-               }
-
-               @media (max-width: 768px) {
-                   html, body {
-                       overflow-x: hidden;
-                       width: 100vw;
-                       height: 100vh;
-                   }
-                   
-                   body {
-                       position: fixed;
-                       top: 0;
-                       left: 0;
-                   }
-
-                   .books {
-                       padding: 10px;
-                       gap: 15px;
-                       min-height: calc(100vh - 60px);
-                       width: 100%;
-                       overflow-y: auto;
-                       -webkit-overflow-scrolling: touch;
-                   }
-
-                   .book {
-                       width: calc(100vw - 40px);
-                       max-width: 350px;
-                       margin: 0 auto;
-                   }
-
-                   .header {
-                       padding: 0 10px;
-                       flex-shrink: 0;
-                   }
-
-                   .header-item-style {
-                       margin: 5px;
-                       padding: 6px 15px;
-                       font-size: 0.9em;
-                   }
-               }
-
-               @media (max-width: 480px) {
-                   .books {
-                       padding: 5px;
-                       gap: 10px;
-                   }
-
-                   .book {
-                       width: calc(100vw - 20px);
-                       padding: 15px;
-                   }
-
-                   .header-item-style {
-                       margin: 2px;
-                       padding: 4px 10px;
-                       font-size: 0.8em;
-                   }
-
-                   .header-item-style .h3-style {
-                       font-size: 1em;
-                   }
-               }
-            </style>
-        </head>
-        <body>
-        <div class="header">
-            <div class="header-item-style">
-                <div class="gradient-overlay"></div>
-                <h3 class="h3-style">LearnPulse</h3>
-            </div>
-
-            <span class="my-element animate__animated animate__heartBeat animate__infinite">💖</span> 
-
-            <div class="header-item-style">
-                <div class="gradient-overlay"></div>
-                <h3 class="h3-style">LitLooms</h3>
-            </div>
-        </div>
-        <div class="books">
-            <% books.forEach(book => { %>
-            <div class="book">
-                <h2><%= book.title %></h2>
-            </div>
-            <% }); %>
-        </div>
-        </body>
-        </html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin:0;
+            padding:0;
+            background:black;
+        }
+       .header{
+           width:100%;
+           display:flex;
+           justify-content:space-between;
+background:#1F1F1F;
+    border:solid 1px white;
+        padding:12px;
+       }
+    </style>
+</head>
+<body>
+<div class="header">
+ <div style="
+     margin;position: relative; display: flex; align-items: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); padding: 8px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%); pointer-events: none;"></div>
+          <h3 style="position: relative; color: white; margin: 0; font-size: 1.3em; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); font-weight: 600; letter-spacing: -0.5px;">LearnPulse</h3>
+ </div>   
+</div>
+    
+        <script src="p5.min.js"></script>
+        <script src="vanta.topology.min.js"></script>
+        <script>
+        VANTA.TOPOLOGY({
+          el: "#body",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x8e8e8d,
+          backgroundColor: 0x0
+        })
+            </script>
+    </script>
+</body>
+</html>
