@@ -58,6 +58,114 @@ app.get("/12",(req,res)=>{
 });
 
 
+async function getToken(){
+   const token = await fetch("https://rolexcoderz.in/api/get-token");
+    const data = await token.json();
+    return data;
+}
+async function getLiveClasses(type) {
+  const { timestamp, signature } = await getToken();
+
+  const response = await fetch("https://rolexcoderz.in/api/get-live-classes", {
+    method: "POST",
+    headers: {
+      "X-Signature": signature,
+      "X-Timestamp": timestamp,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ "type":type  }),
+  });
+
+  try {
+ const jsonResponse = await response.json(); 
+
+    const base64String = jsonResponse.data;
+
+    const decodedText = Buffer.from(base64String, "base64").toString('utf-8');
+    return JSON.parse(decodedText);
+
+  } catch (err) {
+    console.error("Failed to process nested Base64/JSON:");
+      const empty=[];
+    return empty;
+  }
+}
+
+app.get("/9live", async (req, res) => {
+    try {
+        console.log("Fetching live classes for 9th grade...");
+        const [liveResponse, upResponse, completedResponse] = await Promise.all([
+            getLiveClasses("live"),
+            getLiveClasses("up"),
+            getLiveClasses("completed")
+        ]);
+
+        console.log("Live response:", liveResponse);
+        console.log("Up response:", upResponse);
+        console.log("Completed response:", completedResponse);
+
+        const TARGET_BATCH = "AARAMBH 2.O 9th BATCH 25-26";
+
+        const safelyFilterClasses = (response) => {
+            const data = response?.data;
+            if (Array.isArray(data)) {
+                const filtered = data.filter(item => item.batch === TARGET_BATCH);
+                console.log(`Filtered ${filtered.length} items for batch: ${TARGET_BATCH}`);
+                return filtered;
+            }
+            console.log("No data or invalid data format");
+            return [];
+        };
+
+        const filteredLiveClasses = safelyFilterClasses(liveResponse);
+        const filteredUpClasses = safelyFilterClasses(upResponse);
+        const filteredCompletedClasses = safelyFilterClasses(completedResponse);
+
+        console.log("Final filtered counts:", {
+            live: filteredLiveClasses.length,
+            up: filteredUpClasses.length,
+            completed: filteredCompletedClasses.length
+        });
+
+        res.render("live", {
+            data: filteredLiveClasses,
+            updata: filteredUpClasses,
+            comdata: filteredCompletedClasses
+        });
+
+    } catch (error) {
+        console.error("Error fetching or processing live classes for 9th grade:", error);
+        res.status(500).json({ error: "Could not load live class data.", details: error.message });
+    }
+});
+app.get("/10live", async(req,res)=>{
+    const LiveClasses = await getLiveClasses("live");
+    const liveclass = LiveClasses.data;
+    const upClasses= await getLiveClasses("up");
+    const upclass= upClasses.data;
+    const CompletedClasses= await getLiveClasses("completed");
+    const completedclass= CompletedClasses.data;
+    let filteredCompletedClasses;
+    if(completedclass){
+        filteredCompletedClasses = completedclass.filter(item=>item.batch=="AARAMBH BATCH 25-26")}        else{
+        filteredCompletedClasses=[];
+        }
+        
+     let filteredupClasses;
+    if(upclass){
+     filteredupClasses= upclass.filter(item => item.batch == "AARAMBH BATCH 25-26");}
+    else{
+        filteredupClasses=[];
+    }
+    let filteredClasses;
+    if (liveclass){
+     filteredClasses = liveclass.filter(item => item.batch == "AARAMBH BATCH 25-26");}
+    else{
+   filteredClasses=[]
+    }
+res.render("live",{data:filteredClasses,              updata:filteredupClasses,
+comdata:filteredCompletedClasses})})
+
 
 
 
@@ -317,7 +425,8 @@ app.post("/subscribe", (req, res) => {
 const books = JSON.parse(fs.readFileSync("books.json"));
 
 app.get("/books", (req, res) => {
-    res.render("books", { books: books });
+    res.render("books", { books: books,
+   tags:["Popular","Latest","New","Free","Famous","Hyped","Trending","Best","Top","Recomanded","Appreciated","Loved","Favourite","Fire🔥","Hot"],                     });
 });
 app.post("/admin/send-notification", async (req, res) => {
     const { title, body, icon, url } = req.body;
