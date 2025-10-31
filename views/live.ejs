@@ -60,11 +60,27 @@
             height: 30px;
             border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn:hover {
             background: #606060;
+        }
+
+        .btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scale(1.05);
+        }
+
+        .class-section {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .class-section.active {
+            display: flex;
         }
         
         .btn p {
@@ -77,8 +93,10 @@
     .cards{
         display: flex;
         justify-content: center;
+        flex-wrap:wrap;
         margin-top: 35px;
-        padding: 0 1px;
+        padding: 0 10px;
+        gap:10px;
     }
     
     .card{
@@ -161,26 +179,85 @@
         <h3>Live management system</h3>
     </div>
     <div class="selector">
-        <div class="btn">
+        <div class="btn active" id="liveBtn">
             <p>Live</p>
         </div>
-        <div class="btn">
+        <div class="btn" id="upcomingBtn">
             <p>Upcoming</p>
         </div>
-        <div class="btn">
+        <div class="btn" id="completedBtn">
             <p>Completed</p>
         </div>
     </div>
-    <div class="cards">
-        <div class="card">
-            <h3 class="title">
-      Print Culture and mordern world L8         
-            </h3>
-            <p>
-      AARAMBH 2.O 10th BATCH 25-26
-            </p>
-            <a>Join Now</a>
+    <div class="cards" id="cardsContainer">
+        <!-- Live Classes -->
+        <div class="live-cards class-section active">
+            <% data.forEach(session => { %>
+            <div class="card">
+                <h3 class="title">
+                    <%= session.title %>       
+                </h3>
+                <p>
+                    AARAMBH 2.O 10th BATCH 25-26
+                </p>
+                <a href="<%= session.link.replace('https://www.rolexcoderz.xyz/Player/?url=','') %>">
+                    Join Live
+                </a>
             </div>
+            <% }); %>
+            <% if (data.length === 0) { %>
+            <div class="card">
+                <h3 class="title">No Live Classes</h3>
+                <p>There are no live classes at the moment.</p>
+            </div>
+            <% } %>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="upcoming-cards class-section">
+            <% updata.forEach(session => { %>
+            <div class="card">
+                <h3 class="title">
+                    <%= session.title %>       
+                </h3>
+                <p>
+                    AARAMBH 2.O 10th BATCH 25-26
+                </p>
+                <a href="<%= session.link.replace('https://www.rolexcoderz.xyz/Player/?url=','') %>">
+                    View Details
+                </a>
+            </div>
+            <% }); %>
+            <% if (updata.length === 0) { %>
+            <div class="card">
+                <h3 class="title">No Upcoming Classes</h3>
+                <p>There are no upcoming classes scheduled.</p>
+            </div>
+            <% } %>
+        </div>
+
+        <!-- Completed Classes -->
+        <div class="completed-cards class-section">
+            <% comdata.forEach(session => { %>
+            <div class="card">
+                <h3 class="title">
+                    <%= session.title %>       
+                </h3>
+                <p>
+                    AARAMBH 2.O 10th BATCH 25-26
+                </p>
+                <a href="<%= session.link.replace('https://www.rolexcoderz.xyz/Player/?url=','') %>">
+                    Watch Recording
+                </a>
+            </div>
+            <% }); %>
+            <% if (comdata.length === 0) { %>
+            <div class="card">
+                <h3 class="title">No Completed Classes</h3>
+                <p>There are no completed classes available.</p>
+            </div>
+            <% } %>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
@@ -207,7 +284,35 @@
             }
         },
         forceAnimate: true
-    })
+    });
+
+    // Button switching functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const liveBtn = document.getElementById('liveBtn');
+        const upcomingBtn = document.getElementById('upcomingBtn');
+        const completedBtn = document.getElementById('completedBtn');
+        
+        const liveCards = document.querySelector('.live-cards');
+        const upcomingCards = document.querySelector('.upcoming-cards');
+        const completedCards = document.querySelector('.completed-cards');
+        
+        const buttons = [liveBtn, upcomingBtn, completedBtn];
+        const sections = [liveCards, upcomingCards, completedCards];
+
+        function switchSection(activeIndex) {
+            // Remove active class from all buttons and sections
+            buttons.forEach(btn => btn.classList.remove('active'));
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Add active class to selected button and section
+            buttons[activeIndex].classList.add('active');
+            sections[activeIndex].classList.add('active');
+        }
+
+        liveBtn.addEventListener('click', () => switchSection(0));
+        upcomingBtn.addEventListener('click', () => switchSection(1));
+        completedBtn.addEventListener('click', () => switchSection(2));
+    });
     </script>
 </body>
 </html>
