@@ -1,210 +1,459 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books - LearnPulse</title>
-    <style>
-    *,*::before,
-*::after {
-    box-sizing: border-box; /* This is the fix! */
-}    
-        /* Minimalist CSS */
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            /* Remove background to allow Vanta.js effect */
-            min-height:100vh;
-            width:100vw;
-            position: relative;
-        }
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Books - LearnPulse</title>
+                <style>
+                *,*::before,
+                *::after {
+                    box-sizing: border-box;
+                }    
+                    /* Minimalist CSS */
+                    body {
+                        font-family: sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        background: #000;
+                        min-height: 100vh;
+                        width: 100vw;
+                        position: relative; 
+                        z-index:-1;
+                    }
 
-        /* Fixed Background */
-    
+                    /* Header */
+                    .header {
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        background: rgba(31, 31, 31, 0.9);
+                        border-bottom: solid 1px white;
+                        padding: 10px;
+                        z-index: 10; 
+                    }
 
-        /* Header */
-        .header {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            background: rgba(31, 31, 31, 0.9);
-            border-bottom: solid 1px white;
-            padding: 10px;
-            z-index: 10; /* Highest Z-index */
-        }
+                    /* Logo Styling */
+                    .logo {
+                        display: flex;
+                        align-items: center;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+                        padding: 8px 20px;
+                        border-radius: 12px;
+                        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                        overflow: hidden;
+                        position: relative;
+                    }
 
-        /* Logo Styling */
-        .logo {
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            padding: 8px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            overflow: hidden;
-            position: relative; /* Needed for the ::before pseudo-element */
-        }
+                    /* Logo Shine Effect */
+                    .logo::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%);
+                        pointer-events: none;
+                    }
 
-        /* Logo Shine Effect */
-        .logo::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%);
-            pointer-events: none;
-        }
+                    .logo h3 {
+                        position: relative;
+                        color: white;
+                        margin: 0;
+                        font-size: 1.3em;
+                        font-weight: 600;
+                    }
+                   .books{                margin-top:20px;
+                       display:flex;
+                       flex-wrap:wrap;
+                       padding:1px;
+                       justify-content: center; /* Better centering */
+                   }
 
-        .logo h3 {
-            position: relative;
-            color: white;
-            margin: 0;
-            font-size: 1.3em;
-            font-weight: 600;
+                  .card{
+                    /* FIX 2: Set card background to slightly opaque black for better contrast/readability over Vanta.js */
+
+                    background: rgba(0,0,0,0.8); 
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255,255,255,0.3);
+                    border-radius: 15px;
+                    padding: 5px;
+                    max-width: 400px;
+                    width: 100%;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+                    position: relative; /* Essential for positioning the banner */
+                    z-index: 10; /* Keep elements above the background */
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    margin: 10px; /* Added spacing between cards */
+                }
+
+                .card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+                }
+
+                .title{
+                    font-size: 10px;
+                    margin:12px;
+                    color: white;
+                    font-weight: 300;
+                    line-height: 1;
+                    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+                    letter-spacing: 0.3px;
+                }
+                    .card p{
+                        color:rgba(255,255,255,0.7);
+                        text-align: left;
+                        margin-top: 9px;
+                        margin-bottom: 20px;            font-size: 14px;
+                        line-height: 1.5;
+                    }
+
+                    .card a{
+                        display: block;
+                        width: 95%;
+                        color: white;
+                        font-size: 13px;
+                        font-weight: 600;
+                        padding: 10px;
+                        margin: 5px auto;
+                        background: #2563EB;
+                        border: 1px solid rgba(255,255,255,0.3);
+                        border-radius: 5px;
+                        text-decoration: none;
+                        text-align: center;
+                    
+                        transition: all 0.3s ease;
+                        cursor: pointer;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                        letter-spacing: 0.5px;
+                        text-transform: uppercase;
+                        user-select: none;
+                    }
+
+                    
+
+                    .card a:active {
+                        transform: translateY(0);
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                    }
+                    .wrapper{
+                         display:flex;
+                         justify-content:space-around;
+                    }
+
+                  /* CORRECTED BANNER STYLING */
+                  .banner{
+                      /* Change to absolute positioning relative to .card */
+                      position:absolute; 
+                      top: -10px; /* Adjust as needed for desired offset from the corner */
+                      right: -10px; /* Adjust as needed for desired offset from the corner */
+                      z-index: 15; /* Ensure it's above other card content */
+                      transform: rotate(10deg); /* Tilt for a more dynamic "sticker" look */
+
+                      background:linear-gradient(to bottom, #FFFFE0, #FFD700);
+                      font-size:12px;
+                      font-weight: bold;
+                      color: #333;
+                      padding: 3px 10px;
+                      border-radius: 5px;
+                      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                      text-transform: uppercase;
+    animation:rotate 3s linear infinite;
+                  }  
+                  @keyframes rotate {
+                        0% {
+                            transform: rotate(10deg);
+                        }
+                        25% {
+                            transform: rotate(0deg);
+                        }
+            50%{
+        transform:rotate(-10deg);
+            }
+         75%{
+             tansform:rotate(0deg);
+         }
+        100%{
+            transform:rotate(10deg)
         }
-       .books{
-           margin-top:20px;
-        display:flex;
-       flex-wrap:wrap;
-        padding:12px;
-       }
-      .book{
-          background:black;
-              width:100%;
-          height:60px;
-      }.card{
-        background: rgba(0,0,0,0.9);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.3);
-        border-radius: 15px;
-        padding: 5px;
-        max-width: 400px;
-        width: 100%;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        position: relative;
-        z-index: 10;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    }
-    
-    .title{
-        font-size: 16px;
-        margin:12px;
+                    }
+    #particle-canvas {
+                     position: fixed;
+                     top: 0;
+                     left: 0;
+                     width: 100%;
+                     height: 100%;
+                     z-index: -1;
+                   }
+                .downloadbox{
+   margin:10px;
+                  position: fixed;
+                  top: 50%;
+                  left: 47%;
+                  transform: translate(-50%, -50%);
+       z-index:1000;
+      background-color: rgba(0, 0, 0, 1);
+        width:95%;
+        height:auto;
+                  max-width:350px;
+          
+            padding:5px;
+       border: 1px solid rgba(255,255,255,0.3);
+        border-radius:5px;
+        display:none; /* Added to initially hide the download box */
+    flex-direction:column;
+                }
+.downloadbox h3{
+  color:white;
+  text-align:center;
+}
+      .details{            backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid white;
+               padding:15px;
+       border-radius:10px;
+      position: relative;
+      flex: 1;
+      background-color: rgb(235,87,87);
+      color: #ffffffdd;   display:flex;
+     flex-direction:column;
+      }
+      .details span{
+          margin-bottom: 5px;
+      }
+      .details .book-title{
+          font-weight: bold;
+      }
+      .note{
+    background:rgb(13,110,253);    
+    color:white;
+    letter-spacing:0.5px;
+    margin-top:15px;
+        border:1px solid white;
+        border-radius:10px;
+        padding:10px;
+      }
+                  
+                .notice{
+                background:linear-gradient(120deg,rgb(41,167,26),rgb(37,211,102));    
+                color:white;
+        font-size:10px;
+                letter-spacing:0.5px;
+                margin-top:15px;
+                    border:1px solid white;
+                    border-radius:10px;
+      color:rgb(255,255,255);      padding:10px;
+                  }
+      .downbtn{
+        background:linear-gradient(to right,rgb(219,39,119),rgb(220,38,38));
+        font-size:18px;
+                letter-spacing:0.5px;
+                margin:10px;
+   border-radius:8px;                 border:0.5px solid white;
+        width:95%;
+        padding:10px;
         color: white;
-        font-weight: 500;
-        line-height: 1.4;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        letter-spacing: 0.5px;
+        display:flex;
+  align-items:center;
+      justify-content:center;    }
+    .close{
+      position:fixed;
+      top:20px;
+      right:20px;
+      color:white;
     }
-        .card p{
-            color:rgba(255,255,255,0.7);
-            text-align: left;
-            margin-top: 9px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        
-        .card a{
-            display: inline-block;
-            width:97%;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 10px 10px;
-            margin: 5px 5px;
-background: #2563EB;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 5px;
-            text-decoration: none;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .card a:hover {
-            background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
-            border-color: rgba(255,255,255,0.6);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            color: white;
-        }
-        
-        .card a:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .wrapper{
- display:flex;
-justify-content:space-around;
-        }
-            
-    </style>
-</head>
-<body>
+                
+                </style>
+                    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+            </head>
+            <body>
 
-    <div class="header">
-        <div class="logo">
-            <h3>LearnPulse</h3>
-        </div>   
-    </div>
-<div class="books">
-    <div class="card">
-        <h3 class="title">
-            Unbarbad
-        </h3>              <div class="wrapper">
-        <p>Author : Shobhit Nirwan</p>
-     <p>Class : 10</p>   
+                <div class="header">
+                    <div class="logo">
+                        <h3>LearnPulse</h3>
+                    </div>   
+                </div>
+    <div id="particle-canvas"></div>
+              <div class="downloadbox">
+       <h3>Downloads</h3>
+      <div class="details">
+   <span class="book-title">Title: </span>
+  <span class="book-author">Author: </span>
+    <span class="book-category">Category: </span>
+      </div>
+          <div class="note">
+      Note:For best downloading experience, Kindly use Laptop or Pcs          </div>
+        <div class="notice">
+  Dear,Copyright holder,all these books and link are available on internet we just collect it and compile it.if you still want to remove it and wanted to know the source where it available you can contact us.
         </div>
-        <a href="#">Download</a>
-    </div>
-    <% books.forEach((book) => { %>
-    <div class="card">
-        <h3 class="title"><%= book.title %></h3>
-        <div class="wrapper">
-            <p>Author: <%= book.author %></p>
-            <p>Category: <%= book.category %></p>
-        </div>
-        <a href="#">Download</a>
-    </div>
-<% }) %>
-</div>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
+        <div class="downbtn">
+          <b>Download Now</b>
+        </div>        <div class="close"><b>X</b></div>
+              </div>
+                <div class="books">
+                    
+
+                    <% books.forEach((book) => { %>
+                        <div class="card" data-author="<%= book.author %>" data-category="<%= book.category %>">
+                            <span class="banner"><%=tags[Math.floor(Math.random() * 15)] %></span>
+                            <h3 class="title"><%= book.title %></h3>
+                            <div class="wrapper">
+                                <p class="author">Author: <%= book.author %></p>
+                                <p class="catogery">Category: <%= book.category %></p>
+                            </div>
+                            <a class="link"href="#">Download</a>
+                        </div>
+                    <% }) %>
+                    </div>
 <script>
-// Wait for page to load before initializing Vanta
-window.addEventListener('load', function() {
-    try {
-        VANTA.TOPOLOGY({
-            el: "body",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x3f7cac,
-            backgroundColor: 0x0
-        });
-        console.log("Vanta.js initialized successfully");
-    } catch (error) {
-        console.error("Failed to initialize Vanta.js:", error);
-    }
-});
+  let title;
+  const sigmabtn=document.querySelector('.downbtn');
+  const links = document.querySelectorAll(".link");
+  const downloadBox = document.querySelector(".downloadbox");
+  const boxTitle = downloadBox.querySelector(".book-title");
+  const boxAuthor = downloadBox.querySelector(".book-author");
+  const boxCategory = downloadBox.querySelector(".book-category");
+const close=downloadBox.querySelector(".close");
+  sigmabtn.addEventListener('click',(event)=>{
+ console.log(title);
+  })
+ close.addEventListener('click', (event) => {
+event.preventDefault();
+   downloadBox.style.display='none';
+ });
+  links.forEach(link => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault(); 
+      
+      const card = link.closest('.card'); 
+      
+      
+       title = card.querySelector('.title').textContent;
+      const author = card.getAttribute('data-author'); 
+      const category = card.getAttribute('data-category'); 
+
+      
+      boxTitle.textContent = 'Title: ' + title;
+      boxAuthor.textContent = 'Author: ' + author;
+      boxCategory.textContent = 'Category: ' + category;
+      
+      
+      downloadBox.style.display = 'flex'; 
+    });
+  });
 </script>
-</body>
-</html>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+
+                <script>
+                       particlesJS("particle-canvas", {
+                     particles: {
+                       number: {
+                         value: 1200,
+                         density: {
+                           enable: true,
+                           value_area: 900,
+                         },
+                       },
+                       color: {
+                         value: "#e0f7fa",
+                       },
+                       shape: {
+                         type: "circle",
+                         stroke: {
+                           width: 0,
+                           color: "#000000",
+                         },
+                         polygon: {
+                           nb_sides: 6,
+                         },
+                       },
+                       opacity: {
+                         value: 0.6,
+                         random: true,
+                         anim: {
+                           enable: true,
+                           speed: 1.5,
+                           opacity_min: 0.2,
+                           sync: false,
+                         },
+                       },
+                       size: {
+                         value: 6,
+                         random: true,
+                         anim: {
+                           enable: true,
+                           speed: 4,
+                           size_min: 0.3,
+                           sync: false,
+                         },
+                       },
+                       line_linked: {
+                         enable: false,
+                         distance: 160,
+                         color: "#b0bec5",
+                         opacity: 0.5,
+                         width: 1.5,
+                       },
+                       move: {
+                         enable: true,
+                         speed: 3,
+                         direction: "none",
+                         random: true,
+                         straight: false,
+                         out_mode: "out",
+                         bounce: false,
+                         attract: {
+                           enable: false,
+                           rotateX: 600,
+                           rotateY: 1200,
+                         },
+                       },
+                     },
+                     interactivity: {
+                       detect_on: "canvas",
+                       events: {
+                         onhover: {
+                           enable: true,
+                           mode: "repulse",
+                         },
+                         onclick: {
+                           enable: true,
+                           mode: "push",
+                         },
+                         resize: true,
+                       },
+                       modes: {
+                         grab: {
+                           distance: 400,
+                           line_linked: {
+                             opacity: 1,
+                           },
+                         },
+                         bubble: {
+                           distance: 400,
+                           size: 40,
+                           duration: 2,
+                           opacity: 8,
+                           speed: 3,
+                         },
+                         repulse: {
+                           distance: 250,
+                           duration: 0.4,
+                         },
+                         push: {
+                           particles_nb: 6,
+                         },
+                         remove: {
+                           particles_nb: 2,
+                         },
+                       },
+                     },
+                     retina_detect: true,
+                   });
+                </script>
+
+            </body>
+            </html>

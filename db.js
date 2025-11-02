@@ -4,7 +4,6 @@ const fs = require("fs");
 const webpush = require("web-push");
 const Yn = require("crypto-js");
 const app = express();
-const fetch = (...args) => import('node-fetch').then(module => module.default(...args));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -91,53 +90,7 @@ async function getLiveClasses(type) {
   }
 }
 
-app.get("/9live", async (req, res) => {
-    try {
-        console.log("Fetching live classes for 9th grade...");
-        const [liveResponse, upResponse, completedResponse] = await Promise.all([
-            getLiveClasses("live"),
-            getLiveClasses("up"),
-            getLiveClasses("completed")
-        ]);
 
-        console.log("Live response:", liveResponse);
-        console.log("Up response:", upResponse);
-        console.log("Completed response:", completedResponse);
-
-        const TARGET_BATCH = "AARAMBH 2.O 9th BATCH 25-26";
-
-        const safelyFilterClasses = (response) => {
-            const data = response?.data;
-            if (Array.isArray(data)) {
-                const filtered = data.filter(item => item.batch === TARGET_BATCH);
-                console.log(`Filtered ${filtered.length} items for batch: ${TARGET_BATCH}`);
-                return filtered;
-            }
-            console.log("No data or invalid data format");
-            return [];
-        };
-
-        const filteredLiveClasses = safelyFilterClasses(liveResponse);
-        const filteredUpClasses = safelyFilterClasses(upResponse);
-        const filteredCompletedClasses = safelyFilterClasses(completedResponse);
-
-        console.log("Final filtered counts:", {
-            live: filteredLiveClasses.length,
-            up: filteredUpClasses.length,
-            completed: filteredCompletedClasses.length
-        });
-
-        res.render("live", {
-            data: filteredLiveClasses,
-            updata: filteredUpClasses,
-            comdata: filteredCompletedClasses
-        });
-
-    } catch (error) {
-        console.error("Error fetching or processing live classes for 9th grade:", error);
-        res.status(500).json({ error: "Could not load live class data.", details: error.message });
-    }
-});
 app.get("/10live", async(req,res)=>{
     const LiveClasses = await getLiveClasses("live");
     const liveclass = LiveClasses.data;
@@ -166,12 +119,163 @@ app.get("/10live", async(req,res)=>{
 res.render("live",{data:filteredClasses,              updata:filteredupClasses,
 comdata:filteredCompletedClasses})})
 
+app.get("/9live", async(req,res)=>{
+    const LiveClasses = await getLiveClasses("live");
+    const liveclass = LiveClasses.data;
+    const upClasses= await getLiveClasses("up");
+    const upclass= upClasses.data;
+    const CompletedClasses= await getLiveClasses("completed");
+    const completedclass= CompletedClasses.data;
+
+    // Use the exact batch string from the data: "AARAMBH 2.O.  9th  BATCH 25-26"
+    const TARGET_BATCH = "AARAMBH 2.O.  9th  BATCH 25-26";
+
+    let filteredCompletedClasses;
+    if(completedclass){
+      filteredCompletedClasses = completedclass.filter(item=>item.batch == TARGET_BATCH)
+    } else {
+      filteredCompletedClasses=[];
+    }
+
+    let filteredupClasses;
+    if(upclass){
+      filteredupClasses= upclass.filter(item => item.batch == TARGET_BATCH);
+    } else {
+      filteredupClasses=[];
+    }
+
+    let filteredClasses;
+    if (liveclass){
+      filteredClasses = liveclass.filter(item => item.batch == TARGET_BATCH);
+    } else {
+      filteredClasses=[]
+    }
+
+    res.render("live",{data:filteredClasses, updata:filteredupClasses, comdata:filteredCompletedClasses})
+});
 
 
+// Helper function (you already h
 
+// === ROUTE: /11 - 11th Science (PCMB) ===
+app.get("/11live", async (req, res) => {
+  const LiveClasses = await getLiveClasses("live");
+  const liveclass = LiveClasses.data;
+  const upClasses = await getLiveClasses("up");
+  const upclass = upClasses.data;
+  const CompletedClasses = await getLiveClasses("completed");
+  const completedclass = CompletedClasses.data;
 
+  const TARGET_BATCH = "Science 11th (PCMB)";
 
+  let filteredCompletedClasses = completedclass
+    ? completedclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
 
+  let filteredupClasses = upclass
+    ? upclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  let filteredClasses = liveclass
+    ? liveclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  res.render("live", {
+    data: filteredClasses,
+    updata: filteredupClasses,
+    comdata: filteredCompletedClasses
+  });
+});
+
+// === ROUTE: /11eco - 11th Commerce / Economics ===
+app.get("/11ecolive", async (req, res) => {
+  const LiveClasses = await getLiveClasses("live");
+  const liveclass = LiveClasses.data;
+  const upClasses = await getLiveClasses("up");
+  const upclass = upClasses.data;
+  const CompletedClasses = await getLiveClasses("completed");
+  const completedclass = CompletedClasses.data;
+
+  const TARGET_BATCH = "Commerce 11th";
+
+  let filteredCompletedClasses = completedclass
+    ? completedclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  let filteredupClasses = upclass
+    ? upclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  let filteredClasses = liveclass
+    ? liveclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  res.render("live", {
+    data: filteredClasses,
+    updata: filteredupClasses,
+    comdata: filteredCompletedClasses
+  });
+});
+
+// === ROUTE: /11hum - 11th Humanities ===
+app.get("/11humlive", async (req, res) => {
+  const LiveClasses = await getLiveClasses("live");
+  const liveclass = LiveClasses.data;
+  const upClasses = await getLiveClasses("up");
+  const upclass = upClasses.data;
+  const CompletedClasses = await getLiveClasses("completed");
+  const completedclass = CompletedClasses.data;
+
+  const TARGET_BATCH = "Humanities 11th";
+
+  let filteredCompletedClasses = completedclass
+    ? completedclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  let filteredupClasses = upclass
+    ? upclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  let filteredClasses = liveclass
+    ? liveclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  res.render("live", {
+    data: filteredClasses,
+    updata: filteredupClasses,
+    comdata: filteredCompletedClasses
+  });
+});
+
+// === ROUTE: /12 - 12th Science (PCMB) ===
+app.get("/12live", async (req, res) => {
+  const LiveClasses = await getLiveClasses("live");
+  const liveclass = LiveClasses.data;
+  const upClasses = await getLiveClasses("up");
+  const upclass = upClasses.data;
+  const CompletedClasses = await getLiveClasses("completed");
+  const completedclass = CompletedClasses.data;
+
+  const TARGET_BATCH = "Science 12th (PCMB)";
+
+  let filteredCompletedClasses = completedclass
+    ? completedclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  let filteredupClasses = upclass
+    ? upclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  let filteredClasses = liveclass
+    ? liveclass.filter(item => item.batch === TARGET_BATCH)
+    : [];
+
+  res.render("live", {
+    data: filteredClasses,
+    updata: filteredupClasses,
+    comdata: filteredCompletedClasses
+  });
+});
 
 
 
